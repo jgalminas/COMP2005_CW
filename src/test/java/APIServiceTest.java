@@ -4,10 +4,6 @@ import models.Employee;
 import models.Patient;
 import network.MaternityAPIClient;
 import network.MaternityService;
-import okhttp3.Request;
-import okio.Timeout;
-import org.jmock.Expectations;
-import org.jmock.Mockery;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -17,28 +13,25 @@ import retrofit2.Response;
 import utils.DateUtil;
 
 import java.io.IOException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 class APIServiceTest {
 
-    private final MaternityService maternityService;
-    private final APIService apiService;
+    private static MaternityService maternityService;
+    private static APIService apiService;
 
-    public APIServiceTest() {
-
-        // mock maternity api
-
-        Mockery context = new Mockery();
-        maternityService = context.mock(MaternityService.class);
+    @BeforeAll
+    static void setUp() throws IOException {
+        maternityService = mock(MaternityService.class);
         apiService = new APIServiceImpl(maternityService);
 
-
-        Call call = context.mock(Call.class);
+        Call call = mock(Call.class);
 
         List<Admission> admissions = Arrays.asList(
                 new Admission(1, DateUtil.StringToDate("2020-11-28T16:45:00"), DateUtil.StringToDate("2020-11-28T23:56:00"), 2),
@@ -46,25 +39,16 @@ class APIServiceTest {
                 new Admission(3, DateUtil.StringToDate("2021-09-23T21:50:00"), DateUtil.StringToDate("2021-09-27T09:56:00"), 2)
         );
 
-        context.checking(new Expectations() {{
-            oneOf(maternityService).getAdmissions();
-            will(returnValue(call));
-            oneOf(call);
-            will(returnValue(Response.success(admissions)));
-        }});
-
+        when(maternityService.getAdmissions()).thenReturn(call);
+        when(call.execute()).thenReturn(Response.success(admissions));
 
         List<Allocation> allocations = Arrays.asList(
                 new Allocation(1, 1, 4, DateUtil.StringToDate("2020-11-28T16:45:00"), DateUtil.StringToDate("2020-11-28T23:56:00")),
                 new Allocation(2, 3, 4, DateUtil.StringToDate("2021-09-23T21:50:00"), DateUtil.StringToDate("2021-09-24T09:50:00"))
         );
 
-        context.checking(new Expectations() {{
-            oneOf(maternityService).getAllocations();
-            will(returnValue(call));
-            oneOf(call);
-            will(returnValue(Response.success(allocations)));
-        }});
+        when(maternityService.getAllocations()).thenReturn(call);
+        when(call.execute()).thenReturn(Response.success(allocations));
 
         List<Employee> employees = Arrays.asList(
                 new Employee(1, "Finley", "Sarah"),
@@ -75,12 +59,8 @@ class APIServiceTest {
                 new Employee(6, "Smith", "Alice")
         );
 
-        context.checking(new Expectations() {{
-            oneOf(maternityService).getEmployees();
-            will(returnValue(call));
-            oneOf(call);
-            will(returnValue(Response.success(employees)));
-        }});
+        when(maternityService.getEmployees()).thenReturn(call);
+        when(call.execute()).thenReturn(Response.success(employees));
 
         List<Patient> patients = Arrays.asList(
                 new Patient(1, "Robinson", "Viv", "1113335555"),
@@ -88,12 +68,9 @@ class APIServiceTest {
                 new Patient(3, "Barnes", "Nicky", "6663338888")
         );
 
-        context.checking(new Expectations() {{
-            oneOf(maternityService).getPatients();
-            will(returnValue(call));
-            oneOf(call);
-            will(returnValue(Response.success(patients)));
-        }});
+        when(maternityService.getPatients()).thenReturn(call);
+        when(call.execute()).thenReturn(Response.success(patients));
+
     }
 
     @Test

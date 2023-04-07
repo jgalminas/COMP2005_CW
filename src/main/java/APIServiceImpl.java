@@ -1,6 +1,9 @@
 import models.Patient;
 import network.MaternityService;
+
+import java.io.IOException;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class APIServiceImpl implements APIService {
 
@@ -12,6 +15,7 @@ public class APIServiceImpl implements APIService {
 
     @Override
     public List<Patient> getPatientsByEmployeeId(int id) {
+
         return null;
     }
 
