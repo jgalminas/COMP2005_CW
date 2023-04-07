@@ -1,8 +1,14 @@
 import models.Patient;
-
+import network.MaternityService;
 import java.util.List;
 
 public class APIServiceImpl implements APIService {
+
+    private final MaternityService maternityService;
+
+    public APIServiceImpl(MaternityService maternityService) {
+        this.maternityService = maternityService;
+    }
 
     @Override
     public List<Patient> getPatientsByEmployeeId(int id) {

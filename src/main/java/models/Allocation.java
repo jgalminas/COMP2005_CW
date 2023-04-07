@@ -1,16 +1,21 @@
 package models;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 
 public class Allocation {
     private final int id;
-    private int admissionId;
-    private int employeeId;
-    private Date startTime;
-    private Date endTime;
+    private final int admissionId;
+    private final int employeeId;
+    private final LocalDateTime startTime;
+    private final LocalDateTime endTime;
 
-    public Allocation(int id) {
+    public Allocation(int id, int admissionId, int employeeId, LocalDateTime startTime, LocalDateTime endTime) {
         this.id = id;
+        this.admissionId = admissionId;
+        this.employeeId = employeeId;
+        this.startTime = startTime;
+        this.endTime = endTime;
     }
 
     public int getId() {
@@ -21,31 +26,16 @@ public class Allocation {
         return admissionId;
     }
 
-    public void setAdmissionId(int admissionId) {
-        this.admissionId = admissionId;
-    }
-
     public int getEmployeeId() {
         return employeeId;
     }
 
-    public void setEmployeeId(int employeeId) {
-        this.employeeId = employeeId;
-    }
-
-    public Date getStartTime() {
+    public LocalDateTime getStartTime() {
         return startTime;
     }
 
-    public void setStartTime(Date startTime) {
-        this.startTime = startTime;
-    }
-
-    public Date getEndTime() {
+    public LocalDateTime getEndTime() {
         return endTime;
     }
 
-    public void setEndTime(Date endTime) {
-        this.endTime = endTime;
-    }
 }

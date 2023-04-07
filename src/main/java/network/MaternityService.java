@@ -1,5 +1,6 @@
 package network;
 
+import models.Admission;
 import models.Allocation;
 import models.Employee;
 import models.Patient;
@@ -9,6 +10,12 @@ import retrofit2.http.Path;
 import java.util.List;
 
 public interface MaternityService {
+
+    @GET("admissions")
+    Call<List<Admission>> getAdmissions();
+
+    @GET("admissions/{id}")
+    Call<Admission> getAdmissions(@Path("id") int id);
 
     @GET("allocations")
     Call<List<Allocation>> getAllocations();
