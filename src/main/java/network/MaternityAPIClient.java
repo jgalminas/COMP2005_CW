@@ -4,12 +4,12 @@ import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class APIClient {
+public class MaternityAPIClient {
 
-    private static APIClient instance;
+    private static MaternityAPIClient instance;
     private final MaternityService maternityService;
 
-    public APIClient() {
+    public MaternityAPIClient() {
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl("https://web.socem.plymouth.ac.uk/COMP2005/api")
                 .addConverterFactory(GsonConverterFactory.create())
@@ -19,9 +19,9 @@ public class APIClient {
         maternityService = retrofit.create(MaternityService.class);
     }
 
-    public static APIClient getInstance() {
+    public static MaternityAPIClient getInstance() {
         if (instance == null) {
-            instance = new APIClient();
+            instance = new MaternityAPIClient();
         }
 
         return instance;

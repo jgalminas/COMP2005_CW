@@ -2,26 +2,9 @@ import models.Patient;
 
 import java.util.List;
 
-public class APIService implements IAPIService {
-
-
-    @Override
-    public List<Patient> getPatientsByEmployeeId(int id) {
-        return null;
-    }
-
-    @Override
-    public List<Patient> getRecentlyDischargedPatients() {
-        return null;
-    }
-
-    @Override
-    public String GetDayWithMostAdmissions() {
-        return null;
-    }
-
-    @Override
-    public int GetAvgPatientTimeByEmployeeId(int id) {
-        return 0;
-    }
+public interface APIService {
+    List<Patient> getPatientsByEmployeeId(int id);
+    List<Patient> getRecentlyDischargedPatients();
+    String getDayWithMostAdmissions();
+    int getAvgPatientTimeByEmployeeId(int id);
 }

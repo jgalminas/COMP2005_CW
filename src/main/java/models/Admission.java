@@ -1,42 +1,34 @@
 package models;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 public class Admission {
     private final int id;
-    private Date admissionDate;
-    private Date dischargeDate;
-    private int patientId;
+    private final LocalDateTime admissionDate;
+    private final LocalDateTime dischargeDate;
+    private final int patientId;
 
-    public Admission(int id) {
+    public Admission(int id, LocalDateTime admissionDate, LocalDateTime dischargeDate, int patientId) {
         this.id = id;
+        this.admissionDate = admissionDate;
+        this.dischargeDate = dischargeDate;
+        this.patientId = patientId;
     }
 
     public int getId() {
         return id;
     }
 
-    public Date getAdmissionDate() {
+    public LocalDateTime getAdmissionDate() {
         return admissionDate;
     }
 
-    public void setAdmissionDate(Date admissionDate) {
-        this.admissionDate = admissionDate;
-    }
-
-    public Date getDischargeDate() {
+    public LocalDateTime getDischargeDate() {
         return dischargeDate;
-    }
-
-    public void setDischargeDate(Date dischargeDate) {
-        this.dischargeDate = dischargeDate;
     }
 
     public int getPatientId() {
         return patientId;
     }
 
-    public void setPatientId(int patientId) {
-        this.patientId = patientId;
-    }
 }
