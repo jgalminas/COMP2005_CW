@@ -2,15 +2,16 @@ package utils;
 
 import models.Admission;
 import models.Allocation;
-
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class AdmissionsUtil {
 
     public static List<Admission> filterByAllocations(List<Admission> admissions,  List<Allocation> allocations) {
 
-        List<Admission> filtered = new ArrayList<>();
+        Map<Integer, Admission> filtered = new HashMap<>();
 
         if (admissions != null && allocations != null) {
 
@@ -18,7 +19,7 @@ public class AdmissionsUtil {
 
                 for (Admission adm : admissions) {
                     if (adm.getId() == alloc.getAdmissionId()) {
-                        filtered.add(adm);
+                        filtered.put(adm.getId(), adm);
                     }
                 }
 
@@ -26,7 +27,7 @@ public class AdmissionsUtil {
 
         }
 
-        return filtered;
+        return new ArrayList<>(filtered.values());
     }
 
 }

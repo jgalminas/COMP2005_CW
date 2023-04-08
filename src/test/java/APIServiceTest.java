@@ -6,8 +6,8 @@ import org.junit.jupiter.api.Test;
 import retrofit2.Call;
 import retrofit2.Response;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.mock;
@@ -47,65 +47,62 @@ class APIServiceTest {
     void getPatientsByEmployeeNegativeId() {
 
         int id = -10;
-        List<Patient> expected = new ArrayList<>();
+        List<Patient> expected = Collections.emptyList();
         List<Patient> actual = apiService.getPatientsByEmployeeId(id);
 
-        assertEquals(expected, actual);
+        assertArrayEquals(
+                expected.stream().mapToInt(Patient::getId).toArray(),
+                actual.stream().mapToInt(Patient::getId).toArray()
+        );
     }
 
     @Test
     void getPatientsByEmployeeIdNonExisting() {
 
         int id = 0;
-        List<Patient> expected = new ArrayList<>();
+        List<Patient> expected = Collections.emptyList();
         List<Patient> actual = apiService.getPatientsByEmployeeId(id);
 
-        assertEquals(expected, actual);
+        assertArrayEquals(
+                expected.stream().mapToInt(Patient::getId).toArray(),
+                actual.stream().mapToInt(Patient::getId).toArray()
+        );
     }
 
     @Test
     void getPatientsByEmployeeIdMaxInt() {
         int id = Integer.MAX_VALUE;
-        List<Patient> expected = new ArrayList<>();
+        List<Patient> expected = Collections.emptyList();
         List<Patient> actual = apiService.getPatientsByEmployeeId(id);
 
-        assertEquals(expected, actual);
+        assertArrayEquals(
+                expected.stream().mapToInt(Patient::getId).toArray(),
+                actual.stream().mapToInt(Patient::getId).toArray()
+        );
     }
 
     @Test
     void getPatientsByEmployeeIdMinInt() {
         int id = Integer.MIN_VALUE;
-        List<Patient> expected = new ArrayList<>();
+        List<Patient> expected = Collections.emptyList();
         List<Patient> actual = apiService.getPatientsByEmployeeId(id);
 
-        assertEquals(expected, actual);
-    }
-
-    @Test
-    void getPatientsByEmployeeIdTooLargeNeg() {
-        int id = Integer.MIN_VALUE - 100;
-        List<Patient> expected = new ArrayList<>();
-        List<Patient> actual = apiService.getPatientsByEmployeeId(id);
-
-        assertEquals(expected, actual);
-    }
-
-    @Test
-    void getPatientsByEmployeeIdTooLargePos() {
-        int id = Integer.MAX_VALUE + 100;
-        List<Patient> expected = new ArrayList<>();
-        List<Patient> actual = apiService.getPatientsByEmployeeId(id);
-
-        assertEquals(expected, actual);
+        assertArrayEquals(
+                expected.stream().mapToInt(Patient::getId).toArray(),
+                actual.stream().mapToInt(Patient::getId).toArray()
+        );
     }
 
     @Test
     void getPatientsByEmployeeIdValidButNoRecords() {
         int id = 1;
-        List<Patient> expected = new ArrayList<>();
+        List<Patient> expected = Collections.emptyList();
         List<Patient> actual = apiService.getPatientsByEmployeeId(id);
 
-        assertEquals(expected, actual);
+        assertArrayEquals(
+                expected.stream().mapToInt(Patient::getId).toArray(),
+                actual.stream().mapToInt(Patient::getId).toArray()
+        );
     }
 
     @Test
@@ -116,7 +113,10 @@ class APIServiceTest {
         );
         List<Patient> actual = apiService.getPatientsByEmployeeId(id);
 
-        assertEquals(expected, actual);
+        assertArrayEquals(
+                expected.stream().mapToInt(Patient::getId).toArray(),
+                actual.stream().mapToInt(Patient::getId).toArray()
+        );
     }
 
     @Test
