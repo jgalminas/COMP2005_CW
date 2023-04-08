@@ -9,7 +9,7 @@ import retrofit2.http.GET;
 import retrofit2.http.Path;
 import java.util.List;
 
-public interface MaternityService {
+public interface MaternityAPI {
 
     @GET("admissions")
     Call<List<Admission>> getAdmissions();

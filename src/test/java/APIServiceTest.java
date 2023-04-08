@@ -3,7 +3,7 @@ import models.Admission;
 import models.Allocation;
 import models.Employee;
 import models.Patient;
-import network.MaternityService;
+import network.MaternityAPI;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import retrofit2.Call;
@@ -18,36 +18,36 @@ import static org.mockito.Mockito.when;
 
 class APIServiceTest {
 
-    private static MaternityService maternityService;
+    private static MaternityAPI maternityAPI;
     private static APIService apiService;
 
     @BeforeAll
     static void setUp() throws IOException {
-        maternityService = mock(MaternityService.class);
-        apiService = new APIServiceImpl(maternityService);
+        maternityAPI = mock(MaternityAPI.class);
+        apiService = new APIServiceImpl(maternityAPI);
 
         Call<List<Admission>> admissionsCall = mock(Call.class);
 
         // mock GET admissions endpoint
-        when(maternityService.getAdmissions()).thenReturn(admissionsCall);
+        when(maternityAPI.getAdmissions()).thenReturn(admissionsCall);
         when(admissionsCall.execute()).thenReturn(Response.success(Static.ADMISSIONS));
 
         Call<List<Allocation>> allocationsCall = mock(Call.class);
 
         // mock GET allocations endpoint
-        when(maternityService.getAllocations()).thenReturn(allocationsCall);
+        when(maternityAPI.getAllocations()).thenReturn(allocationsCall);
         when(allocationsCall.execute()).thenReturn(Response.success(Static.ALLOCATIONS));
 
         Call<List<Employee>> employeesCall = mock(Call.class);
 
         // mock GET employees endpoint
-        when(maternityService.getEmployees()).thenReturn(employeesCall);
+        when(maternityAPI.getEmployees()).thenReturn(employeesCall);
         when(employeesCall.execute()).thenReturn(Response.success(Static.EMPLOYEES));
 
         Call<List<Patient>> patientCall = mock(Call.class);
 
         // mock GET patients endpoint
-        when(maternityService.getPatients()).thenReturn(patientCall);
+        when(maternityAPI.getPatients()).thenReturn(patientCall);
         when(patientCall.execute()).thenReturn(Response.success(Static.PATIENTS));
 
     }
