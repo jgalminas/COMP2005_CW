@@ -1,22 +1,14 @@
-import models.Admission;
-import models.Allocation;
-import models.Employee;
+import data.Static;
 import models.Patient;
-import network.MaternityAPIClient;
 import network.MaternityService;
 import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import retrofit2.Call;
-import retrofit2.Callback;
 import retrofit2.Response;
-import utils.DateUtil;
-
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
@@ -33,43 +25,21 @@ class APIServiceTest {
 
         Call call = mock(Call.class);
 
-        List<Admission> admissions = Arrays.asList(
-                new Admission(1, DateUtil.StringToDate("2020-11-28T16:45:00"), DateUtil.StringToDate("2020-11-28T23:56:00"), 2),
-                new Admission(2, DateUtil.StringToDate("2020-12-07T22:14:00"), DateUtil.StringToDate("0001-01-01T00:00:00"), 1),
-                new Admission(3, DateUtil.StringToDate("2021-09-23T21:50:00"), DateUtil.StringToDate("2021-09-27T09:56:00"), 2)
-        );
-
+        // mock GET admissions endpoint
         when(maternityService.getAdmissions()).thenReturn(call);
-        when(call.execute()).thenReturn(Response.success(admissions));
+        when(call.execute()).thenReturn(Response.success(Static.ADMISSIONS));
 
-        List<Allocation> allocations = Arrays.asList(
-                new Allocation(1, 1, 4, DateUtil.StringToDate("2020-11-28T16:45:00"), DateUtil.StringToDate("2020-11-28T23:56:00")),
-                new Allocation(2, 3, 4, DateUtil.StringToDate("2021-09-23T21:50:00"), DateUtil.StringToDate("2021-09-24T09:50:00"))
-        );
-
+        // mock GET allocations endpoint
         when(maternityService.getAllocations()).thenReturn(call);
-        when(call.execute()).thenReturn(Response.success(allocations));
+        when(call.execute()).thenReturn(Response.success(Static.ALLOCATIONS));
 
-        List<Employee> employees = Arrays.asList(
-                new Employee(1, "Finley", "Sarah"),
-                new Employee(2, "Jackson", "Robert"),
-                new Employee(3, "Allen", "Alice"),
-                new Employee(4, "Jones", "Sarah"),
-                new Employee(5, "Wicks", "Patrick"),
-                new Employee(6, "Smith", "Alice")
-        );
-
+        // mock GET employees endpoint
         when(maternityService.getEmployees()).thenReturn(call);
-        when(call.execute()).thenReturn(Response.success(employees));
+        when(call.execute()).thenReturn(Response.success(Static.EMPLOYEES));
 
-        List<Patient> patients = Arrays.asList(
-                new Patient(1, "Robinson", "Viv", "1113335555"),
-                new Patient(2, "Carter", "Heather", "2224446666"),
-                new Patient(3, "Barnes", "Nicky", "6663338888")
-        );
-
+        // mock GET patients endpoint
         when(maternityService.getPatients()).thenReturn(call);
-        when(call.execute()).thenReturn(Response.success(patients));
+        when(call.execute()).thenReturn(Response.success(Static.PATIENTS));
 
     }
 
