@@ -1,4 +1,7 @@
 import data.Static;
+import models.Admission;
+import models.Allocation;
+import models.Employee;
 import models.Patient;
 import network.MaternityService;
 import org.junit.jupiter.api.BeforeAll;
@@ -23,23 +26,29 @@ class APIServiceTest {
         maternityService = mock(MaternityService.class);
         apiService = new APIServiceImpl(maternityService);
 
-        Call call = mock(Call.class);
+        Call<List<Admission>> admissionsCall = mock(Call.class);
 
         // mock GET admissions endpoint
-        when(maternityService.getAdmissions()).thenReturn(call);
-        when(call.execute()).thenReturn(Response.success(Static.ADMISSIONS));
+        when(maternityService.getAdmissions()).thenReturn(admissionsCall);
+        when(admissionsCall.execute()).thenReturn(Response.success(Static.ADMISSIONS));
+
+        Call<List<Allocation>> allocationsCall = mock(Call.class);
 
         // mock GET allocations endpoint
-        when(maternityService.getAllocations()).thenReturn(call);
-        when(call.execute()).thenReturn(Response.success(Static.ALLOCATIONS));
+        when(maternityService.getAllocations()).thenReturn(allocationsCall);
+        when(allocationsCall.execute()).thenReturn(Response.success(Static.ALLOCATIONS));
+
+        Call<List<Employee>> employeesCall = mock(Call.class);
 
         // mock GET employees endpoint
-        when(maternityService.getEmployees()).thenReturn(call);
-        when(call.execute()).thenReturn(Response.success(Static.EMPLOYEES));
+        when(maternityService.getEmployees()).thenReturn(employeesCall);
+        when(employeesCall.execute()).thenReturn(Response.success(Static.EMPLOYEES));
+
+        Call<List<Patient>> patientCall = mock(Call.class);
 
         // mock GET patients endpoint
-        when(maternityService.getPatients()).thenReturn(call);
-        when(call.execute()).thenReturn(Response.success(Static.PATIENTS));
+        when(maternityService.getPatients()).thenReturn(patientCall);
+        when(patientCall.execute()).thenReturn(Response.success(Static.PATIENTS));
 
     }
 
