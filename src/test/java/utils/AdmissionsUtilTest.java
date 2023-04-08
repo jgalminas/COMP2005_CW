@@ -5,6 +5,7 @@ import models.Admission;
 import models.Allocation;
 import org.junit.jupiter.api.Test;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -120,6 +121,51 @@ class AdmissionsUtilTest {
                 expected.stream().mapToInt(Admission::getId).toArray(),
                 actual.stream().mapToInt(Admission::getId).toArray()
         );
+    }
+
+    @Test
+    void testGetAdmissionDurationSameDates() {
+        Admission admission = new Admission(
+                3,
+                DateUtil.StringToDate("2021-09-23T02:00:00"),
+                DateUtil.StringToDate("2021-09-23T02:00:00"),
+                2
+        );
+
+        long expected = 0;
+        long actual = AdmissionsUtil.getAdmissionDuration(admission);
+
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    void testGetAdmissionDurationEarlierDate() {
+        Admission admission = new Admission(
+                3,
+                DateUtil.StringToDate("2021-09-23T12:00:00"),
+                DateUtil.StringToDate("2021-09-23T02:00:00"),
+                2
+        );
+
+        long expected = -600;
+        long actual = AdmissionsUtil.getAdmissionDuration(admission);
+
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    void testGetAdmissionDurationLaterDate() {
+        Admission admission = new Admission(
+                3,
+                DateUtil.StringToDate("2021-09-23T02:00:00"),
+                DateUtil.StringToDate("2021-09-23T12:10:20"),
+                2
+        );
+
+        long expected = 610;
+        long actual = AdmissionsUtil.getAdmissionDuration(admission);
+
+        assertEquals(expected, actual);
     }
 
 }
