@@ -1,54 +1,31 @@
 import data.Static;
-import models.Admission;
-import models.Allocation;
-import models.Employee;
 import models.Patient;
-import network.MaternityAPI;
+import network.MaternityService;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
-import retrofit2.Call;
-import retrofit2.Response;
-import java.io.IOException;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import java.util.concurrent.CompletableFuture;
+
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 class APIServiceTest {
 
-    private static MaternityAPI maternityAPI;
-    private static APIService apiService;
+    private static APIService apiService = new APIServiceImpl(mock(MaternityService.class));
 
     @BeforeAll
-    static void setUp() throws IOException {
-        maternityAPI = mock(MaternityAPI.class);
-        apiService = new APIServiceImpl(maternityAPI);
+    static void setUp()  {
 
-        Call<List<Admission>> admissionsCall = mock(Call.class);
+        MaternityService maternityService = mock(MaternityService.class);
+        apiService = new APIServiceImpl(maternityService);
 
-        // mock GET admissions endpoint
-        when(maternityAPI.getAdmissions()).thenReturn(admissionsCall);
-        when(admissionsCall.execute()).thenReturn(Response.success(Static.ADMISSIONS));
-
-        Call<List<Allocation>> allocationsCall = mock(Call.class);
-
-        // mock GET allocations endpoint
-        when(maternityAPI.getAllocations()).thenReturn(allocationsCall);
-        when(allocationsCall.execute()).thenReturn(Response.success(Static.ALLOCATIONS));
-
-        Call<List<Employee>> employeesCall = mock(Call.class);
-
-        // mock GET employees endpoint
-        when(maternityAPI.getEmployees()).thenReturn(employeesCall);
-        when(employeesCall.execute()).thenReturn(Response.success(Static.EMPLOYEES));
-
-        Call<List<Patient>> patientCall = mock(Call.class);
-
-        // mock GET patients endpoint
-        when(maternityAPI.getPatients()).thenReturn(patientCall);
-        when(patientCall.execute()).thenReturn(Response.success(Static.PATIENTS));
+        when(maternityService.getAdmissions()).thenReturn(CompletableFuture.supplyAsync(() -> Static.ADMISSIONS));
+        when(maternityService.getAllocations()).thenReturn(CompletableFuture.supplyAsync(() -> Static.ALLOCATIONS));
+        when(maternityService.getEmployees()).thenReturn(CompletableFuture.supplyAsync(() -> Static.EMPLOYEES));
+        when(maternityService.getPatients()).thenReturn(CompletableFuture.supplyAsync(() -> Static.PATIENTS));
 
     }
 

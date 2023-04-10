@@ -1,22 +1,34 @@
+import models.Admission;
+import models.Allocation;
 import models.Patient;
 import network.MaternityService;
+import utils.AdmissionsUtil;
+import utils.AllocationsUtil;
+import utils.PatientUtil;
 
 import java.io.IOException;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class APIServiceImpl implements APIService {
 
     private final MaternityService maternityService;
 
-    public APIServiceImpl(MaternityService maternityService) {
-        this.maternityService = maternityService;
+    public APIServiceImpl(MaternityService maternityAPI) {
+        this.maternityService = maternityAPI;
     }
 
     @Override
     public List<Patient> getPatientsByEmployeeId(int id) {
 
-        return null;
+        List<Admission> admissions = maternityService.getAdmissions().join();
+        List<Allocation> allocations = maternityService.getAllocations().join();
+        List<Patient> patients = maternityService.getPatients().join();
+
+        List<Allocation> filteredAllocations = AllocationsUtil.filterByEmployeeId(id, allocations);
+        List<Admission> filteredAdmissions = AdmissionsUtil.filterByAllocations(admissions, filteredAllocations);
+
+        return PatientUtil.filterByAdmissions(patients, filteredAdmissions);
+
     }
 
     @Override
