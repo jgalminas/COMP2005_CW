@@ -5,6 +5,7 @@ import com.google.gson.GsonBuilder;
 import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
+import java.time.LocalDateTime;
 
 public class RetrofitClient {
 
@@ -14,7 +15,7 @@ public class RetrofitClient {
     public RetrofitClient() {
 
         Gson gson = new GsonBuilder()
-                .setDateFormat("yyyy-MM-dd'T'HH:mm:ss")
+                .registerTypeAdapter(LocalDateTime.class, new DateDeserializer())
                 .create();
 
         Retrofit retrofit = new Retrofit.Builder()
