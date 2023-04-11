@@ -69,7 +69,7 @@ class MaternityServiceImplTest {
     }
 
     @Test
-    void getAllocations() {
+    void testGetAllocations() {
 
         CompletableFuture<List<Allocation>> expectedFuture = CompletableFuture.supplyAsync(() -> Static.ALLOCATIONS);
         CompletableFuture<List<Allocation>> actualFuture = maternityService.getAllocations();
@@ -87,7 +87,7 @@ class MaternityServiceImplTest {
     }
 
     @Test
-    void getAdmissions() {
+    void testGetAdmissions() {
         CompletableFuture<List<Admission>> expectedFuture = CompletableFuture.supplyAsync(() -> Static.ADMISSIONS);
         CompletableFuture<List<Admission>> actualFuture = maternityService.getAdmissions();
 
@@ -103,7 +103,7 @@ class MaternityServiceImplTest {
     }
 
     @Test
-    void getEmployees() {
+    void testGetEmployees() {
         CompletableFuture<List<Employee>> expectedFuture = CompletableFuture.supplyAsync(() -> Static.EMPLOYEES);
         CompletableFuture<List<Employee>> actualFuture = maternityService.getEmployees();
 
@@ -119,7 +119,7 @@ class MaternityServiceImplTest {
     }
 
     @Test
-    void getPatients() {
+    void testGetPatients() {
         CompletableFuture<List<Patient>> expectedFuture = CompletableFuture.supplyAsync(() -> Static.PATIENTS);
         CompletableFuture<List<Patient>> actualFuture = maternityService.getPatients();
 

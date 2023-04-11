@@ -7,6 +7,7 @@ import utils.AllocationsUtil;
 import utils.PatientUtil;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class APIServiceImpl implements APIService {
@@ -32,8 +33,23 @@ public class APIServiceImpl implements APIService {
     }
 
     @Override
-    public List<Patient> getRecentlyDischargedPatients() {
-        return null;
+    public List<Patient> getPatientsDischargedWithin3Days() {
+
+        List<Admission> admissions = maternityService.getAdmissions().join();
+        List<Patient> patients = maternityService.getPatients().join();
+
+        List<Admission> filteredAdmissions = new ArrayList<>();
+
+        for (Admission ad : admissions) {
+
+            long durationInDays = AdmissionsUtil.getAdmissionDuration(ad) / (60 * 24);
+
+            if (durationInDays >= 0 && durationInDays < 3) {
+                filteredAdmissions.add(ad);
+            }
+        }
+
+        return PatientUtil.filterByAdmissions(patients, filteredAdmissions);
     }
 
     @Override

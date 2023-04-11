@@ -5,8 +5,7 @@ import network.MaternityService;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import utils.DateUtil;
-
-import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
@@ -34,7 +33,7 @@ class APIServiceTest {
     }
 
     @Test
-    void getPatientsByEmployeeNegativeId() {
+    void getPatientsByEmployeeId_Negative() {
 
         int id = -10;
         List<Patient> expected = Collections.emptyList();
@@ -47,7 +46,7 @@ class APIServiceTest {
     }
 
     @Test
-    void getPatientsByEmployeeIdNonExisting() {
+    void getPatientsByEmployeeId_NonExisting() {
 
         int id = 0;
         List<Patient> expected = Collections.emptyList();
@@ -60,7 +59,7 @@ class APIServiceTest {
     }
 
     @Test
-    void getPatientsByEmployeeIdMaxInt() {
+    void getPatientsByEmployeeId_MaxInt() {
         int id = Integer.MAX_VALUE;
         List<Patient> expected = Collections.emptyList();
         List<Patient> actual = apiService.getPatientsByEmployeeId(id);
@@ -72,7 +71,7 @@ class APIServiceTest {
     }
 
     @Test
-    void getPatientsByEmployeeIdMinInt() {
+    void getPatientsByEmployeeId_MinInt() {
         int id = Integer.MIN_VALUE;
         List<Patient> expected = Collections.emptyList();
         List<Patient> actual = apiService.getPatientsByEmployeeId(id);
@@ -84,7 +83,7 @@ class APIServiceTest {
     }
 
     @Test
-    void getPatientsByEmployeeIdValidButNoRecords() {
+    void getPatientsByEmployeeId_ValidButNoRecords() {
         int id = 1;
         List<Patient> expected = Collections.emptyList();
         List<Patient> actual = apiService.getPatientsByEmployeeId(id);
@@ -96,7 +95,7 @@ class APIServiceTest {
     }
 
     @Test
-    void getPatientsByEmployeeIdValidWithRecords() {
+    void getPatientsByEmployeeId_ValidWithRecords() {
         int id = 4;
         List<Patient> expected = Arrays.asList(
                 new Patient(2, "Carter", "Heather", "2224446666")
@@ -115,6 +114,16 @@ class APIServiceTest {
     }
 
     @Test
+    void getDayWithMostAdmissions_NoAdmissions() {
+        fail();
+    }
+
+    @Test
+    void getDayWithMostAdmissions_EqualDays() {
+        fail();
+    }
+
+    @Test
     void getAvgPatientTimeByCorrectEmployeeId() {
         fail();
     }
@@ -127,7 +136,7 @@ class APIServiceTest {
     @Test
     void getPatientsDischargedWithin3Days_NoAdmissions() {
 
-        when(maternityService.getAdmissions()).thenReturn(CompletableFuture.supplyAsync(Collections::emptyList));
+        when(maternityService.getAdmissions()).thenReturn(CompletableFuture.supplyAsync(ArrayList::new));
 
         List<Patient> expected = Collections.emptyList();
         List<Patient> actual = apiService.getPatientsDischargedWithin3Days();
@@ -142,6 +151,12 @@ class APIServiceTest {
     @Test
     void getPatientsDischargedWithin3Days_NoDischargesWithin3Days() {
 
+        when(maternityService.getAdmissions()).thenReturn(CompletableFuture.supplyAsync(() -> new ArrayList<>(Arrays.asList(
+                new Admission(2, DateUtil.StringToDate("2020-12-07T22:14:00"), DateUtil.StringToDate("0001-01-01T00:00:00"), 1),
+                new Admission(4, DateUtil.StringToDate("2020-12-07T22:14:00"), DateUtil.StringToDate("0001-01-01T00:00:00"), 1),
+                new Admission(3, DateUtil.StringToDate("2021-09-23T21:50:00"), DateUtil.StringToDate("2021-01-25T21:50:00"), 2)
+        ))));
+
         List<Patient> expected = Collections.emptyList();
         List<Patient> actual = apiService.getPatientsDischargedWithin3Days();
 
@@ -155,10 +170,10 @@ class APIServiceTest {
     @Test
     void getPatientsDischargedWithin3Days() {
 
-        when(maternityService.getAdmissions()).thenReturn(CompletableFuture.supplyAsync(() -> Arrays.asList(
+        when(maternityService.getAdmissions()).thenReturn(CompletableFuture.supplyAsync(() -> new ArrayList<>(Arrays.asList(
                 new Admission(2, DateUtil.StringToDate("2020-12-07T22:14:00"), DateUtil.StringToDate("0001-01-01T00:00:00"), 1),
                 new Admission(3, DateUtil.StringToDate("2021-09-23T21:50:00"), DateUtil.StringToDate("2021-09-25T21:50:00"), 2)
-        )));
+        ))));
 
         List<Patient> expected = Arrays.asList(
                 new Patient(2, "Carter", "Heather", "2224446666")
@@ -175,10 +190,10 @@ class APIServiceTest {
     @Test
     void getPatientsDischargedWithin3Days_DischargedWithin0Minutes() {
 
-        when(maternityService.getAdmissions()).thenReturn(CompletableFuture.supplyAsync(() -> Arrays.asList(
+        when(maternityService.getAdmissions()).thenReturn(CompletableFuture.supplyAsync(() -> new ArrayList<>(Arrays.asList(
                 new Admission(2, DateUtil.StringToDate("2020-12-07T22:14:00"), DateUtil.StringToDate("0001-01-01T00:00:00"), 1),
                 new Admission(3, DateUtil.StringToDate("2021-09-23T21:50:00"), DateUtil.StringToDate("2021-09-23T21:50:00"), 2)
-        )));
+        ))));
 
         List<Patient> expected = Arrays.asList(
                 new Patient(2, "Carter", "Heather", "2224446666")
@@ -193,12 +208,12 @@ class APIServiceTest {
     }
 
     @Test
-    void getRecentlyDischarged_Exactly3Days() {
+    void getPatientsDischargedWithin3Days_Exactly3Days() {
 
-        when(maternityService.getAdmissions()).thenReturn(CompletableFuture.supplyAsync(() -> Arrays.asList(
+        when(maternityService.getAdmissions()).thenReturn(CompletableFuture.supplyAsync(() -> new ArrayList<>(Arrays.asList(
                 new Admission(2, DateUtil.StringToDate("2020-12-07T22:14:00"), DateUtil.StringToDate("0001-01-01T00:00:00"), 1),
                 new Admission(3, DateUtil.StringToDate("2021-09-23T21:50:00"), DateUtil.StringToDate("2021-09-24T21:50:00"), 2)
-        )));
+        ))));
 
         List<Patient> expected = Arrays.asList(
                 new Patient(2, "Carter", "Heather", "2224446666")
