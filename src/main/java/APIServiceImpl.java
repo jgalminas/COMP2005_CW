@@ -41,7 +41,7 @@ public class APIServiceImpl implements APIService {
 
         for (Admission ad : admissions) {
 
-            long durationInDays = AdmissionsUtil.getAdmissionDuration(ad) / (60 * 24);
+            long durationInDays = AdmissionsUtil.getAdmissionDuration(ad).toDays();
 
             if (durationInDays >= 0 && durationInDays < 3) {
                 filteredAdmissions.add(ad);
@@ -77,8 +77,22 @@ public class APIServiceImpl implements APIService {
     }
 
     @Override
-    public int getAvgPatientTimeByEmployeeId(int id) {
-        return 0;
+    public long getAvgPatientTimeByEmployeeId(int id) {
+
+        List<Admission> admissions = maternityService.getAdmissions().join();
+        List<Allocation> allocations = maternityService.getAllocations().join();
+
+        List<Allocation> filteredAllocations = AllocationsUtil.filterByEmployeeId(id, allocations);
+        List<Admission> filteredAdmissions = AdmissionsUtil.filterByAllocations(admissions, filteredAllocations);
+
+        // calculate avg time per admission
+        long totalTime = 0;
+
+        for (Admission ad : filteredAdmissions) {
+            totalTime += Math.max(0, AdmissionsUtil.getAdmissionDuration(ad).toMinutes());
+        }
+
+        return totalTime == 0 ? totalTime : totalTime / filteredAdmissions.size();
     }
 
 }

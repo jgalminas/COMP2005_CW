@@ -133,7 +133,7 @@ class AdmissionsUtilTest {
         );
 
         long expected = 0;
-        long actual = AdmissionsUtil.getAdmissionDuration(admission);
+        long actual = AdmissionsUtil.getAdmissionDuration(admission).toMinutes();
 
         assertEquals(expected, actual);
     }
@@ -148,7 +148,7 @@ class AdmissionsUtilTest {
         );
 
         long expected = -600;
-        long actual = AdmissionsUtil.getAdmissionDuration(admission);
+        long actual = AdmissionsUtil.getAdmissionDuration(admission).toMinutes();
 
         assertEquals(expected, actual);
     }
@@ -163,7 +163,7 @@ class AdmissionsUtilTest {
         );
 
         long expected = 610;
-        long actual = AdmissionsUtil.getAdmissionDuration(admission);
+        long actual = AdmissionsUtil.getAdmissionDuration(admission).toMinutes();
 
         assertEquals(expected, actual);
     }

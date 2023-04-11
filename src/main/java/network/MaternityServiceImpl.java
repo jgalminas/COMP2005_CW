@@ -7,7 +7,6 @@ import models.Patient;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-
 import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;

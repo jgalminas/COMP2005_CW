@@ -32,7 +32,7 @@ public class AdmissionsUtil {
         return new ArrayList<>(filtered.values());
     }
 
-    public static long getAdmissionDuration(Admission admission) {
-        return Duration.between(admission.getAdmissionDate(), admission.getDischargeDate()).toMinutes();
+    public static Duration getAdmissionDuration(Admission admission) {
+        return Duration.between(admission.getAdmissionDate(), admission.getDischargeDate());
     }
 }

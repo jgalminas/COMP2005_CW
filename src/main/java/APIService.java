@@ -6,5 +6,5 @@ public interface APIService {
     List<Patient> getPatientsByEmployeeId(int id);
     List<Patient> getPatientsDischargedWithin3Days();
     String getDayWithMostAdmissions();
-    int getAvgPatientTimeByEmployeeId(int id);
+    long getAvgPatientTimeByEmployeeId(int id);
 }

@@ -19,7 +19,6 @@ class APIServiceTest {
     static APIService apiService = new APIServiceImpl(mock(MaternityService.class));
     static final MaternityService maternityService = mock(MaternityService.class);
 
-
     @BeforeAll
     static void setUp()  {
 
@@ -152,13 +151,51 @@ class APIServiceTest {
     }
 
     @Test
-    void getAvgPatientTimeByCorrectEmployeeId() {
-        fail();
+    void getAvgPatientTimeByEmployeeId_ValidButNoAdmissions() {
+
+        when(maternityService.getAdmissions()).thenReturn(CompletableFuture.supplyAsync(Collections::emptyList));
+
+        long expected = 0;
+        long actual = apiService.getAvgPatientTimeByEmployeeId(4);
+
+        assertEquals(expected, actual);
+
     }
 
     @Test
-    void getAvgPatientTimeByCIncorrectEmployeeId() {
-        fail();
+    void getAvgPatientTimeByEmployeeId_ValidWithAdmissions() {
+
+        long expected = 2738;
+        long actual = apiService.getAvgPatientTimeByEmployeeId(4);
+
+        assertEquals(expected, actual);
+
+    }
+
+    @Test
+    void getAvgPatientTimeByEmployeeId_InvalidAdmissionDateRange() {
+
+        when(maternityService.getAdmissions()).thenReturn(CompletableFuture.supplyAsync(() -> new ArrayList<>(Arrays.asList(
+                new Admission(1, DateUtil.StringToDate("2020-11-28T16:45:00"), DateUtil.StringToDate("2020-11-25T23:56:00"), 2),
+                new Admission(2, DateUtil.StringToDate("2020-12-07T22:14:00"), DateUtil.StringToDate("0001-01-01T00:00:00"), 1),
+                new Admission(3, DateUtil.StringToDate("2021-09-23T21:50:00"), DateUtil.StringToDate("2021-09-27T09:56:00"), 2)
+        ))));
+
+        long expected = 2523;
+        long actual = apiService.getAvgPatientTimeByEmployeeId(4);
+
+        assertEquals(expected, actual);
+
+    }
+
+    @Test
+    void getAvgPatientTimeByEmployeeId_Invalid() {
+
+        long expected = 0;
+        long actual = apiService.getAvgPatientTimeByEmployeeId(-1);
+
+        assertEquals(expected, actual);
+
     }
 
     @Test
