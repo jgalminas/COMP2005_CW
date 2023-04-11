@@ -26,7 +26,6 @@ class APIServiceTest {
 
         when(maternityService.getAdmissions()).thenReturn(CompletableFuture.supplyAsync(() -> Static.ADMISSIONS));
         when(maternityService.getAllocations()).thenReturn(CompletableFuture.supplyAsync(() -> Static.ALLOCATIONS));
-        when(maternityService.getEmployees()).thenReturn(CompletableFuture.supplyAsync(() -> Static.EMPLOYEES));
         when(maternityService.getPatients()).thenReturn(CompletableFuture.supplyAsync(() -> Static.PATIENTS));
 
     }

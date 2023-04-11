@@ -2,7 +2,6 @@ package network;
 
 import models.Admission;
 import models.Allocation;
-import models.Employee;
 import models.Patient;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -27,7 +26,7 @@ public class MaternityServiceImpl implements MaternityService {
         maternityAPI.getAllocations().enqueue(new Callback<List<Allocation>>() {
             @Override
             public void onResponse(Call<List<Allocation>> call, Response<List<Allocation>> response) {
-                if (response.isSuccessful()) {
+                if (response.code() == 200) {
                     future.complete(response.body());
                 } else {
                     future.complete(Collections.emptyList());
@@ -51,7 +50,7 @@ public class MaternityServiceImpl implements MaternityService {
         maternityAPI.getAdmissions().enqueue(new Callback<List<Admission>>() {
             @Override
             public void onResponse(Call<List<Admission>> call, Response<List<Admission>> response) {
-                if (response.isSuccessful()) {
+                if (response.code() == 200) {
                     future.complete(response.body());
                 } else {
                     future.complete(Collections.emptyList());
@@ -68,30 +67,6 @@ public class MaternityServiceImpl implements MaternityService {
     }
 
     @Override
-    public CompletableFuture<List<Employee>> getEmployees() {
-
-        CompletableFuture<List<Employee>> future = new CompletableFuture<>();
-
-        maternityAPI.getEmployees().enqueue(new Callback<List<Employee>>() {
-            @Override
-            public void onResponse(Call<List<Employee>> call, Response<List<Employee>> response) {
-                if (response.isSuccessful()) {
-                    future.complete(response.body());
-                } else {
-                    future.complete(Collections.emptyList());
-                }
-            }
-
-            @Override
-            public void onFailure(Call<List<Employee>> call, Throwable t) {
-                future.completeExceptionally(t);
-            }
-        });
-
-        return future;
-    }
-
-    @Override
     public CompletableFuture<List<Patient>> getPatients() {
 
         CompletableFuture<List<Patient>> future = new CompletableFuture<>();
@@ -99,7 +74,7 @@ public class MaternityServiceImpl implements MaternityService {
         maternityAPI.getPatients().enqueue(new Callback<List<Patient>>() {
             @Override
             public void onResponse(Call<List<Patient>> call, Response<List<Patient>> response) {
-                if (response.isSuccessful()) {
+                if (response.code() == 200) {
                     future.complete(response.body());
                 } else {
                     future.complete(Collections.emptyList());

@@ -2,7 +2,6 @@ package data;
 
 import models.Admission;
 import models.Allocation;
-import models.Employee;
 import models.Patient;
 import utils.DateUtil;
 
@@ -21,15 +20,6 @@ public class Static {
     public static final List<Allocation> ALLOCATIONS = new ArrayList<>(Arrays.asList(
             new Allocation(1, 1, 4, DateUtil.StringToDate("2020-11-28T16:45:00"), DateUtil.StringToDate("2020-11-28T23:56:00")),
             new Allocation(2, 3, 4, DateUtil.StringToDate("2021-09-23T21:50:00"), DateUtil.StringToDate("2021-09-24T09:50:00"))
-    ));
-
-    public static final List<Employee> EMPLOYEES = new ArrayList<>(Arrays.asList(
-            new Employee(1, "Finley", "Sarah"),
-            new Employee(2, "Jackson", "Robert"),
-            new Employee(3, "Allen", "Alice"),
-            new Employee(4, "Jones", "Sarah"),
-            new Employee(5, "Wicks", "Patrick"),
-            new Employee(6, "Smith", "Alice")
     ));
 
     public static final List<Patient> PATIENTS = new ArrayList<>(Arrays.asList(
