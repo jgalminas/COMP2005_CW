@@ -110,17 +110,45 @@ class APIServiceTest {
 
     @Test
     void getDayWithMostAdmissions() {
-        fail();
+
+        when(maternityService.getAdmissions()).thenReturn(CompletableFuture.supplyAsync(() -> new ArrayList<>(Arrays.asList(
+                new Admission(1, DateUtil.StringToDate("2023-04-11T22:14:00"), DateUtil.StringToDate("2023-04-04T22:14:00"), 1),
+                new Admission(2, DateUtil.StringToDate("2023-04-18T22:14:00"), DateUtil.StringToDate("2023-04-11T22:14:00"), 2),
+                new Admission(3, DateUtil.StringToDate("2023-04-25T21:50:00"), DateUtil.StringToDate("2023-04-23T22:14:00"), 2),
+                new Admission(4, DateUtil.StringToDate("2023-04-07T22:14:00"), DateUtil.StringToDate("2023-04-24T22:14:00"), 3),
+                new Admission(5, DateUtil.StringToDate("2023-04-02T21:50:00"), DateUtil.StringToDate("2023-04-22T22:14:00"), 2)
+        ))));
+
+        String expected = "TUESDAY";
+        String actual = apiService.getDayWithMostAdmissions();
+
+        assertEquals(expected, actual);
     }
 
     @Test
     void getDayWithMostAdmissions_NoAdmissions() {
-        fail();
+
+        when(maternityService.getAdmissions()).thenReturn(CompletableFuture.supplyAsync(Collections::emptyList));
+
+        String actual = apiService.getDayWithMostAdmissions();
+        assertNull(actual);
     }
 
     @Test
-    void getDayWithMostAdmissions_EqualDays() {
-        fail();
+    void getDayWithMostAdmissions_TwoOrMoreEqualDays() {
+
+        when(maternityService.getAdmissions()).thenReturn(CompletableFuture.supplyAsync(() -> new ArrayList<>(Arrays.asList(
+                new Admission(1, DateUtil.StringToDate("2023-04-12T22:14:00"), DateUtil.StringToDate("2023-04-04T22:14:00"), 1),
+                new Admission(2, DateUtil.StringToDate("2023-04-12T22:14:00"), DateUtil.StringToDate("2023-04-11T22:14:00"), 2),
+                new Admission(3, DateUtil.StringToDate("2023-04-23T21:50:00"), DateUtil.StringToDate("2023-04-23T22:14:00"), 2),
+                new Admission(4, DateUtil.StringToDate("2023-04-23T22:14:00"), DateUtil.StringToDate("2023-04-24T22:14:00"), 3),
+                new Admission(5, DateUtil.StringToDate("2023-04-23T21:50:00"), DateUtil.StringToDate("2023-04-22T22:14:00"), 2)
+        ))));
+
+        String expected = "SUNDAY";
+        String actual = apiService.getDayWithMostAdmissions();
+
+        assertEquals(expected, actual);
     }
 
     @Test

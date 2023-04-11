@@ -7,8 +7,7 @@ import utils.AllocationsUtil;
 import utils.PatientUtil;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 public class APIServiceImpl implements APIService {
 
@@ -54,7 +53,27 @@ public class APIServiceImpl implements APIService {
 
     @Override
     public String getDayWithMostAdmissions() {
-        return null;
+
+        List<Admission> admissions = maternityService.getAdmissions().join();
+
+        Map<String, Integer> dayCounts = new HashMap<>();
+
+        // sum up the days
+        for (Admission ad : admissions) {
+            String day = ad.getAdmissionDate().getDayOfWeek().toString();
+            dayCounts.put(day, (dayCounts.get(day) != null ? dayCounts.get(day): 0) + 1);
+        }
+
+        // get the day with most admissions
+        String day = null;
+
+        for (String key : dayCounts.keySet()) {
+            if (day == null || dayCounts.get(day) < dayCounts.get(key)) {
+                day = key;
+            }
+        }
+
+        return day;
     }
 
     @Override
