@@ -125,12 +125,12 @@ class APIServiceTest {
     }
 
     @Test
-    void getRecentlyDischarged_NoAdmissions() {
+    void getPatientsDischargedWithin3Days_NoAdmissions() {
 
         when(maternityService.getAdmissions()).thenReturn(CompletableFuture.supplyAsync(Collections::emptyList));
 
         List<Patient> expected = Collections.emptyList();
-        List<Patient> actual = apiService.getRecentlyDischargedPatients();
+        List<Patient> actual = apiService.getPatientsDischargedWithin3Days();
 
         assertArrayEquals(
                 expected.stream().mapToInt(Patient::getId).toArray(),
@@ -140,10 +140,10 @@ class APIServiceTest {
     }
 
     @Test
-    void getRecentlyDischarged_NoRecentAdmissions() {
+    void getPatientsDischargedWithin3Days_NoDischargesWithin3Days() {
 
         List<Patient> expected = Collections.emptyList();
-        List<Patient> actual = apiService.getRecentlyDischargedPatients();
+        List<Patient> actual = apiService.getPatientsDischargedWithin3Days();
 
         assertArrayEquals(
                 expected.stream().mapToInt(Patient::getId).toArray(),
@@ -153,17 +153,17 @@ class APIServiceTest {
     }
 
     @Test
-    void getRecentlyDischarged() {
+    void getPatientsDischargedWithin3Days() {
 
         when(maternityService.getAdmissions()).thenReturn(CompletableFuture.supplyAsync(() -> Arrays.asList(
                 new Admission(2, DateUtil.StringToDate("2020-12-07T22:14:00"), DateUtil.StringToDate("0001-01-01T00:00:00"), 1),
-                new Admission(3, DateUtil.StringToDate("2021-09-23T21:50:00"), LocalDateTime.now().minusDays(1), 2)
+                new Admission(3, DateUtil.StringToDate("2021-09-23T21:50:00"), DateUtil.StringToDate("2021-09-25T21:50:00"), 2)
         )));
 
         List<Patient> expected = Arrays.asList(
                 new Patient(2, "Carter", "Heather", "2224446666")
         );
-        List<Patient> actual = apiService.getRecentlyDischargedPatients();
+        List<Patient> actual = apiService.getPatientsDischargedWithin3Days();
 
         assertArrayEquals(
                 expected.stream().mapToInt(Patient::getId).toArray(),
@@ -173,17 +173,17 @@ class APIServiceTest {
     }
 
     @Test
-    void getRecentlyDischarged_0Minutes() {
+    void getPatientsDischargedWithin3Days_DischargedWithin0Minutes() {
 
         when(maternityService.getAdmissions()).thenReturn(CompletableFuture.supplyAsync(() -> Arrays.asList(
                 new Admission(2, DateUtil.StringToDate("2020-12-07T22:14:00"), DateUtil.StringToDate("0001-01-01T00:00:00"), 1),
-                new Admission(3, DateUtil.StringToDate("2021-09-23T21:50:00"), LocalDateTime.now(), 2)
+                new Admission(3, DateUtil.StringToDate("2021-09-23T21:50:00"), DateUtil.StringToDate("2021-09-23T21:50:00"), 2)
         )));
 
         List<Patient> expected = Arrays.asList(
                 new Patient(2, "Carter", "Heather", "2224446666")
         );
-        List<Patient> actual = apiService.getRecentlyDischargedPatients();
+        List<Patient> actual = apiService.getPatientsDischargedWithin3Days();
 
         assertArrayEquals(
                 expected.stream().mapToInt(Patient::getId).toArray(),
@@ -197,13 +197,13 @@ class APIServiceTest {
 
         when(maternityService.getAdmissions()).thenReturn(CompletableFuture.supplyAsync(() -> Arrays.asList(
                 new Admission(2, DateUtil.StringToDate("2020-12-07T22:14:00"), DateUtil.StringToDate("0001-01-01T00:00:00"), 1),
-                new Admission(3, DateUtil.StringToDate("2021-09-23T21:50:00"), LocalDateTime.now().minusDays(3), 2)
+                new Admission(3, DateUtil.StringToDate("2021-09-23T21:50:00"), DateUtil.StringToDate("2021-09-24T21:50:00"), 2)
         )));
 
         List<Patient> expected = Arrays.asList(
                 new Patient(2, "Carter", "Heather", "2224446666")
         );
-        List<Patient> actual = apiService.getRecentlyDischargedPatients();
+        List<Patient> actual = apiService.getPatientsDischargedWithin3Days();
 
         assertArrayEquals(
                 expected.stream().mapToInt(Patient::getId).toArray(),
