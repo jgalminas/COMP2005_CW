@@ -20,7 +20,8 @@ public class APIController {
         this.apiService = apiService;
     }
 
-    @Operation(summary = "Get the day of the week which has the most amount of admissions.")
+    @Operation(summary = "Get the day of the week which has the most amount of admissions.",
+            description = "If two or more days of the week have the same amount of admissions only one will be returned at random.")
     @GetMapping(value = "day-with-most-admissions", produces = MediaType.APPLICATION_JSON_VALUE)
     public Day getDayWithMostAdmissions() {
         return apiService.getDayWithMostAdmissions();
