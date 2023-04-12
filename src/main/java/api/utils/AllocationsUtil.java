@@ -1,6 +1,6 @@
-package utils;
+package api.utils;
 
-import models.Allocation;
+import api.models.Allocation;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;

@@ -1,5 +1,7 @@
 plugins {
     id 'java'
+    id 'org.springframework.boot' version '2.7.4'
+    id 'io.spring.dependency-management' version '1.0.14.RELEASE'
 }
 
 group 'org.example'
@@ -14,8 +16,9 @@ dependencies {
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.9.2'
     testImplementation 'org.mockito:mockito-core:4.11.0'
 
-    // Spark
-    implementation "com.sparkjava:spark-core:2.9.4"
+    // Spring
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
 
     // Network Dependencies
     implementation 'com.squareup.retrofit2:retrofit:2.9.0'

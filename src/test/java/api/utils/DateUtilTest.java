@@ -1,10 +1,9 @@
-package utils;
+package api.utils;
 
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDateTime;
 import java.util.Calendar;
-import java.util.Date;
 
 import static org.junit.jupiter.api.Assertions.*;
 

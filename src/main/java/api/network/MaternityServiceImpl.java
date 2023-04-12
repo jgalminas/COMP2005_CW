@@ -1,8 +1,10 @@
-package network;
+package api.network;
 
-import models.Admission;
-import models.Allocation;
-import models.Patient;
+import api.models.Admission;
+import api.models.Allocation;
+import api.models.Patient;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -10,10 +12,12 @@ import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
+@Service
 public class MaternityServiceImpl implements MaternityService {
 
     final MaternityAPI maternityAPI;
 
+    @Autowired
     public MaternityServiceImpl(MaternityAPI maternityAPI) {
         this.maternityAPI = maternityAPI;
     }

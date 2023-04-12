@@ -1,18 +1,22 @@
-import models.Admission;
-import models.Allocation;
-import models.Patient;
-import network.MaternityService;
-import utils.AdmissionsUtil;
-import utils.AllocationsUtil;
-import utils.PatientUtil;
+package api;
 
-import java.io.IOException;
+import api.models.Admission;
+import api.models.Allocation;
+import api.models.Patient;
+import api.network.MaternityService;
+import api.utils.AdmissionsUtil;
+import api.utils.AllocationsUtil;
+import api.utils.PatientUtil;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import java.util.*;
 
+@Service
 public class APIServiceImpl implements APIService {
 
     private final MaternityService maternityService;
 
+    @Autowired
     public APIServiceImpl(MaternityService maternityAPI) {
         this.maternityService = maternityAPI;
     }

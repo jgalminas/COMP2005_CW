@@ -1,9 +1,9 @@
 package data;
 
-import models.Admission;
-import models.Allocation;
-import models.Patient;
-import utils.DateUtil;
+import api.models.Admission;
+import api.models.Allocation;
+import api.models.Patient;
+import api.utils.DateUtil;
 
 import java.util.ArrayList;
 import java.util.Arrays;

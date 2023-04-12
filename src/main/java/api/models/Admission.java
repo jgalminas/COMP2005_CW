@@ -1,4 +1,6 @@
-package models;
+package api.models;
+
+import com.google.gson.annotations.SerializedName;
 
 import java.time.LocalDateTime;
 
@@ -6,6 +8,7 @@ public class Admission {
     private final int id;
     private final LocalDateTime admissionDate;
     private final LocalDateTime dischargeDate;
+    @SerializedName("patientID")
     private final int patientId;
 
     public Admission(int id, LocalDateTime admissionDate, LocalDateTime dischargeDate, int patientId) {

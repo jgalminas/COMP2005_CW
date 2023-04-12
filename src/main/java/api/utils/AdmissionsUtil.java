@@ -1,7 +1,7 @@
-package utils;
+package api.utils;
 
-import models.Admission;
-import models.Allocation;
+import api.models.Admission;
+import api.models.Allocation;
 
 import java.time.Duration;
 import java.util.ArrayList;

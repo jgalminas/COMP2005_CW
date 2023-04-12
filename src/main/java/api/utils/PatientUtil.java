@@ -1,7 +1,7 @@
-package utils;
+package api.utils;
 
-import models.Admission;
-import models.Patient;
+import api.models.Admission;
+import api.models.Patient;
 import java.util.*;
 
 public class PatientUtil {

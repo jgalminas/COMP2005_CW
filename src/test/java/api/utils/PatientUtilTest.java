@@ -1,12 +1,10 @@
-package utils;
+package api.utils;
 
 import data.Static;
-import models.Admission;
-import models.Allocation;
-import models.Patient;
+import api.models.Admission;
+import api.models.Patient;
 import org.junit.jupiter.api.Test;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;

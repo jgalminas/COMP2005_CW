@@ -1,9 +1,9 @@
-package network;
+package api.network;
 
 import data.Static;
-import models.Admission;
-import models.Allocation;
-import models.Patient;
+import api.models.Admission;
+import api.models.Allocation;
+import api.models.Patient;
 import okhttp3.MediaType;
 import okhttp3.ResponseBody;
 import org.junit.jupiter.api.Test;

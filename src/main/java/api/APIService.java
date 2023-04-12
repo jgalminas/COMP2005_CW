@@ -1,4 +1,8 @@
-import models.Patient;
+package api;
+
+import api.models.Patient;
+import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 

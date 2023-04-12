@@ -1,12 +1,15 @@
-package network;
+package api.network;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import okhttp3.OkHttpClient;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 import java.time.LocalDateTime;
 
+@Configuration
 public class RetrofitClient {
 
     private static RetrofitClient instance;
@@ -27,6 +30,7 @@ public class RetrofitClient {
         maternityAPI = retrofit.create(MaternityAPI.class);
     }
 
+    @Bean
     public static RetrofitClient getInstance() {
         if (instance == null) {
             instance = new RetrofitClient();
@@ -35,6 +39,7 @@ public class RetrofitClient {
         return instance;
     }
 
+    @Bean
     public MaternityAPI getMaternityAPI() {
         return maternityAPI;
     }

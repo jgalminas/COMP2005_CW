@@ -1,10 +1,14 @@
-package models;
+package api.models;
+
+import com.google.gson.annotations.SerializedName;
 
 import java.time.LocalDateTime;
 
 public class Allocation {
     private final int id;
+    @SerializedName("admissionID")
     private final int admissionId;
+    @SerializedName("employeeID")
     private final int employeeId;
     private final LocalDateTime startTime;
     private final LocalDateTime endTime;

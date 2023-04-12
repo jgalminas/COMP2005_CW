@@ -1,8 +1,8 @@
-package network;
+package api.network;
 
-import models.Admission;
-import models.Allocation;
-import models.Patient;
+import api.models.Admission;
+import api.models.Allocation;
+import api.models.Patient;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 

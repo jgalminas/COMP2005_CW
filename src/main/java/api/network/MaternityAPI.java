@@ -1,8 +1,8 @@
-package network;
+package api.network;
 
-import models.Admission;
-import models.Allocation;
-import models.Patient;
+import api.models.Admission;
+import api.models.Allocation;
+import api.models.Patient;
 import retrofit2.Call;
 import retrofit2.http.GET;
 import java.util.List;
