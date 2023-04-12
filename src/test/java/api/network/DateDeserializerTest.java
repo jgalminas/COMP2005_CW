@@ -1,6 +1,7 @@
 package api.network;
 
 import com.google.gson.JsonElement;
+import com.google.gson.JsonNull;
 import com.google.gson.JsonPrimitive;
 import org.junit.jupiter.api.Test;
 import java.time.LocalDateTime;
@@ -12,6 +13,13 @@ import static org.junit.jupiter.api.Assertions.*;
 class DateDeserializerTest {
 
     DateDeserializer deserializer = new DateDeserializer();
+
+    @Test
+    void testDeserialization_NullDateString() {
+
+        JsonElement json = JsonNull.INSTANCE;
+        assertThrows(UnsupportedOperationException.class, () -> deserializer.deserialize(json, null, null));
+    }
 
     @Test
     void testDeserialization_InvalidDateString() {

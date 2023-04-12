@@ -1,4 +1,4 @@
-package api;
+package api.services;
 
 import api.models.*;
 import api.network.MaternityService;
@@ -8,7 +8,6 @@ import api.utils.PatientUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.*;
-import java.util.concurrent.TimeUnit;
 
 @Service
 public class APIServiceImpl implements APIService {

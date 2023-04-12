@@ -12,15 +12,7 @@ public class DateDeserializer implements JsonDeserializer<LocalDateTime> {
 
     @Override
     public LocalDateTime deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
-
-        String dateTimeString = json.getAsString();
-
-        if (dateTimeString == null) {
-            return null;
-        }
-
-        return DateUtil.StringToDate(dateTimeString);
-
+        return DateUtil.StringToDate(json.getAsString());
     }
 
 }
