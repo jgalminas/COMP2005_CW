@@ -1,5 +1,7 @@
-import api.APIService;
-import api.APIServiceImpl;
+package api;
+import api.models.AdmissionDuration;
+import api.models.Day;
+import api.utils.AdmissionsUtil;
 import data.Static;
 import api.models.Admission;
 import api.models.Patient;
@@ -7,11 +9,15 @@ import api.network.MaternityService;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import api.utils.DateUtil;
+
+import java.time.Duration;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.TimeUnit;
+
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
@@ -119,10 +125,10 @@ class APIServiceTest {
                 new Admission(5, DateUtil.StringToDate("2023-04-02T21:50:00"), DateUtil.StringToDate("2023-04-22T22:14:00"), 2)
         ))));
 
-        String expected = "TUESDAY";
-        String actual = apiService.getDayWithMostAdmissions();
+        Day expected = new Day("TUESDAY");
+        Day actual = apiService.getDayWithMostAdmissions();
 
-        assertEquals(expected, actual);
+        assertEquals(expected.getName(), actual.getName());
     }
 
     @Test
@@ -130,8 +136,8 @@ class APIServiceTest {
 
         when(maternityService.getAdmissions()).thenReturn(CompletableFuture.supplyAsync(Collections::emptyList));
 
-        String actual = apiService.getDayWithMostAdmissions();
-        assertNull(actual);
+        Day actual = apiService.getDayWithMostAdmissions();
+        assertNull(actual.getName());
     }
 
     @Test
@@ -145,10 +151,10 @@ class APIServiceTest {
                 new Admission(5, DateUtil.StringToDate("2023-04-23T21:50:00"), DateUtil.StringToDate("2023-04-22T22:14:00"), 2)
         ))));
 
-        String expected = "SUNDAY";
-        String actual = apiService.getDayWithMostAdmissions();
+        Day expected = new Day("SUNDAY");
+        Day actual = apiService.getDayWithMostAdmissions();
 
-        assertEquals(expected, actual);
+        assertEquals(expected.getName(), actual.getName());
     }
 
     @Test
@@ -156,20 +162,20 @@ class APIServiceTest {
 
         when(maternityService.getAdmissions()).thenReturn(CompletableFuture.supplyAsync(Collections::emptyList));
 
-        long expected = 0;
-        long actual = apiService.getAvgPatientTimeByEmployeeId(4);
+        AdmissionDuration expected = new AdmissionDuration(0);
+        AdmissionDuration actual = apiService.getAvgPatientTimeByEmployeeId(4);
 
-        assertEquals(expected, actual);
+        assertEquals(expected.getAmount(), actual.getAmount());
 
     }
 
     @Test
     void getAvgPatientTimeByEmployeeId_ValidWithAdmissions() {
 
-        long expected = 2738;
-        long actual = apiService.getAvgPatientTimeByEmployeeId(4);
+        AdmissionDuration expected = new AdmissionDuration(2738);
+        AdmissionDuration actual = apiService.getAvgPatientTimeByEmployeeId(4);
 
-        assertEquals(expected, actual);
+        assertEquals(expected.getAmount(), actual.getAmount());
 
     }
 
@@ -182,20 +188,20 @@ class APIServiceTest {
                 new Admission(3, DateUtil.StringToDate("2021-09-23T21:50:00"), DateUtil.StringToDate("2021-09-27T09:56:00"), 2)
         ))));
 
-        long expected = 2523;
-        long actual = apiService.getAvgPatientTimeByEmployeeId(4);
+        AdmissionDuration expected = new AdmissionDuration(2523);
+        AdmissionDuration actual = apiService.getAvgPatientTimeByEmployeeId(4);
 
-        assertEquals(expected, actual);
+        assertEquals(expected.getAmount(), actual.getAmount());
 
     }
 
     @Test
     void getAvgPatientTimeByEmployeeId_Invalid() {
 
-        long expected = 0;
-        long actual = apiService.getAvgPatientTimeByEmployeeId(-1);
+        AdmissionDuration expected = new AdmissionDuration(0);
+        AdmissionDuration actual = apiService.getAvgPatientTimeByEmployeeId(-1);
 
-        assertEquals(expected, actual);
+        assertEquals(expected.getAmount(), actual.getAmount());
 
     }
 

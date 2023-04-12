@@ -1,8 +1,6 @@
 package api;
 
-import api.models.Admission;
-import api.models.Allocation;
-import api.models.Patient;
+import api.models.*;
 import api.network.MaternityService;
 import api.utils.AdmissionsUtil;
 import api.utils.AllocationsUtil;
@@ -10,6 +8,7 @@ import api.utils.PatientUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.*;
+import java.util.concurrent.TimeUnit;
 
 @Service
 public class APIServiceImpl implements APIService {
@@ -56,7 +55,7 @@ public class APIServiceImpl implements APIService {
     }
 
     @Override
-    public String getDayWithMostAdmissions() {
+    public Day getDayWithMostAdmissions() {
 
         List<Admission> admissions = maternityService.getAdmissions().join();
 
@@ -77,11 +76,11 @@ public class APIServiceImpl implements APIService {
             }
         }
 
-        return day;
+        return new Day(day);
     }
 
     @Override
-    public long getAvgPatientTimeByEmployeeId(int id) {
+    public AdmissionDuration getAvgPatientTimeByEmployeeId(int id) {
 
         List<Admission> admissions = maternityService.getAdmissions().join();
         List<Allocation> allocations = maternityService.getAllocations().join();
@@ -96,7 +95,7 @@ public class APIServiceImpl implements APIService {
             totalTime += Math.max(0, AdmissionsUtil.getAdmissionDuration(ad).toMinutes());
         }
 
-        return totalTime == 0 ? totalTime : totalTime / filteredAdmissions.size();
+        return new AdmissionDuration(totalTime == 0 ? totalTime : totalTime / filteredAdmissions.size());
     }
 
 }

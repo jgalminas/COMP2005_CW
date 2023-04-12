@@ -19,6 +19,8 @@ dependencies {
     // Spring
     implementation 'org.springframework.boot:spring-boot-starter-web'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    implementation 'org.springdoc:springdoc-openapi-ui:1.7.0'
+
 
     // Network Dependencies
     implementation 'com.squareup.retrofit2:retrofit:2.9.0'
