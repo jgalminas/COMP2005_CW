@@ -14,11 +14,6 @@ class RetrofitClientTest {
     }
 
     @Test
-    void testGetMaternityAPI() {
-        assertInstanceOf(MaternityAPI.class, retrofitClient.getMaternityAPI());
-    }
-
-    @Test
     void testMaternityAPINotNull() {
         assertNotNull(retrofitClient.getMaternityAPI());
     }
