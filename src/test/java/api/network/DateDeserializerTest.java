@@ -18,7 +18,8 @@ class DateDeserializerTest {
     void testDeserialization_NullDateString() {
 
         JsonElement json = JsonNull.INSTANCE;
-        assertThrows(UnsupportedOperationException.class, () -> deserializer.deserialize(json, null, null));
+
+        assertNull(deserializer.deserialize(json, null, null));
     }
 
     @Test
@@ -27,7 +28,7 @@ class DateDeserializerTest {
         String dateString = "";
         JsonElement json = new JsonPrimitive(dateString);
 
-        assertThrows(DateTimeParseException.class, () -> deserializer.deserialize(json, null, null));
+        assertNull(deserializer.deserialize(json, null, null));
     }
 
     @Test
