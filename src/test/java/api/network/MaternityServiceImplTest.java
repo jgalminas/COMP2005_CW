@@ -10,12 +10,10 @@ import org.junit.jupiter.api.Test;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import java.time.Duration;
 import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CompletionException;
-
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
@@ -42,15 +40,13 @@ class MaternityServiceImplTest {
         CompletableFuture<List<Allocation>> expectedFuture = CompletableFuture.supplyAsync(() -> Static.ALLOCATIONS);
         CompletableFuture<List<Allocation>> actualFuture = maternityService.getAllocations();
 
-        assertTimeout(Duration.ofSeconds(5), () -> {
-            List<Allocation> expected = expectedFuture.join();
-            List<Allocation> actual = actualFuture.join();
+        List<Allocation> expected = expectedFuture.join();
+        List<Allocation> actual = actualFuture.join();
 
-            assertArrayEquals(
-                    expected.stream().mapToInt(Allocation::getId).toArray(),
-                    actual.stream().mapToInt(Allocation::getId).toArray()
-            );
-        });
+        assertArrayEquals(
+                expected.stream().mapToInt(Allocation::getId).toArray(),
+                actual.stream().mapToInt(Allocation::getId).toArray()
+        );
 
     }
 

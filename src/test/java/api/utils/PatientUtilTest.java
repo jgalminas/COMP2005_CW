@@ -14,7 +14,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class PatientUtilTest {
 
     @Test
-    void testFilterByAdmissionAdmissionsAndPatientsIsEmpty() {
+    void testFilterByAdmission_AdmissionsAndPatientsIsEmpty() {
 
         List<Admission> admissions = Collections.emptyList();
         List<Patient> patients = Collections.emptyList();
@@ -29,7 +29,7 @@ class PatientUtilTest {
     }
 
     @Test
-    void testFilterByAdmissionAdmissionsAndPatientsIsNull() {
+    void testFilterByAdmission_AdmissionsAndPatientsIsNull() {
 
         List<Admission> admissions = null;
         List<Patient> patients = null;
@@ -44,7 +44,7 @@ class PatientUtilTest {
     }
 
     @Test
-    void testFilterByAdmissionsAdmissionsIsNull() {
+    void testFilterByAdmissions_AdmissionsIsNullAndPatientsIsEmpty() {
 
         List<Admission> admissions = null;
         List<Patient> patients = Collections.emptyList();
@@ -59,7 +59,7 @@ class PatientUtilTest {
     }
 
     @Test
-    void testFilterByAdmissionsPatientsIsNull() {
+    void testFilterByAdmissions_PatientsIsNullAndAdmissionsIsEmpty() {
 
         List<Admission> admissions = Collections.emptyList();
         List<Patient> patients = null;
@@ -74,7 +74,7 @@ class PatientUtilTest {
     }
 
     @Test
-    void testFilterByAdmissionsAdmissionsIsEmpty() {
+    void testFilterByAdmissions_AdmissionsIsEmpty() {
 
         List<Admission> admissions = Collections.emptyList();
         List<Patient> patients = Static.PATIENTS;
@@ -89,7 +89,7 @@ class PatientUtilTest {
     }
 
     @Test
-    void testFilterByAdmissionsPatientsIsEmpty() {
+    void testFilterByAdmissions_PatientsIsEmpty() {
 
         List<Admission> admissions = Static.ADMISSIONS;
         List<Patient> patients = Collections.emptyList();
@@ -104,7 +104,7 @@ class PatientUtilTest {
     }
 
     @Test
-    void testFilterByAdmissionsPatientsAndAdmissionsIsNotEmpty() {
+    void testFilterByAdmissions_PatientsAndAdmissionsIsNotEmpty() {
 
         List<Admission> admissions = Static.ADMISSIONS;
         List<Patient> patients = Static.PATIENTS;

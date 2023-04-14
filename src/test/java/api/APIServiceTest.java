@@ -21,18 +21,14 @@ import static org.mockito.Mockito.when;
 
 class APIServiceTest {
 
-    static APIService apiService = new APIServiceImpl(mock(MaternityService.class));
     static final MaternityService maternityService = mock(MaternityService.class);
+    static final APIService apiService = new APIServiceImpl(maternityService);
 
     @BeforeAll
     static void setUp()  {
-
-        apiService = new APIServiceImpl(maternityService);
-
         when(maternityService.getAdmissions()).thenReturn(CompletableFuture.supplyAsync(() -> Static.ADMISSIONS));
         when(maternityService.getAllocations()).thenReturn(CompletableFuture.supplyAsync(() -> Static.ALLOCATIONS));
         when(maternityService.getPatients()).thenReturn(CompletableFuture.supplyAsync(() -> Static.PATIENTS));
-
     }
 
     @Test

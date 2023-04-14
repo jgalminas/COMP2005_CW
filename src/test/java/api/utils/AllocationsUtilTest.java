@@ -12,7 +12,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class AllocationsUtilTest {
 
     @Test
-    void testFilterByEmployeeByNegativeId() {
+    void testFilterByEmployeeById_Negative() {
         int id = -2;
         List<Allocation> expected = Collections.emptyList();
         List<Allocation> actual = AllocationsUtil.filterByEmployeeId(id, Static.ALLOCATIONS);
@@ -24,7 +24,7 @@ class AllocationsUtilTest {
     }
 
     @Test
-    void testFilterByEmployeeWhenAllocationsIsNull() {
+    void testFilterByEmployeeId_WhenAllocationsIsNull() {
         int id = -2;
         List<Allocation> expected = Collections.emptyList();
         List<Allocation> actual = AllocationsUtil.filterByEmployeeId(id, null);
@@ -36,7 +36,7 @@ class AllocationsUtilTest {
     }
 
     @Test
-    void testFilterByEmployeeByValidIdButNoResults() {
+    void testFilterByEmployeeId_ValidIdButNoResults() {
         int id = 2;
         List<Allocation> expected = Collections.emptyList();
         List<Allocation> actual = AllocationsUtil.filterByEmployeeId(id, Static.ALLOCATIONS);
@@ -48,7 +48,7 @@ class AllocationsUtilTest {
     }
 
     @Test
-    void testFilterByEmployeeByIdEmptyAllocationsList() {
+    void testFilterByEmployeeById_EmptyAllocationsList() {
         int id = 4;
         List<Allocation> expected = Collections.emptyList();
         List<Allocation> actual = AllocationsUtil.filterByEmployeeId(id, Collections.emptyList());
@@ -60,7 +60,7 @@ class AllocationsUtilTest {
     }
 
     @Test
-    void testFilterByEmployeeByValidIdWithResults() {
+    void testFilterByEmployeeById_ValidIdWithResults() {
         int id = 4;
         List<Allocation> expected = Arrays.asList(
                 new Allocation(1, 1, 4, DateUtil.StringToDate("2020-11-28T16:45:00"), DateUtil.StringToDate("2020-11-28T23:56:00")),
@@ -76,7 +76,7 @@ class AllocationsUtilTest {
     }
 
     @Test
-    void testFilterByEmployeeIdMaxValue() {
+    void testFilterByEmployeeId_MaxIntValue() {
         int id = Integer.MAX_VALUE;
         List<Allocation> expected = Collections.emptyList();
         List<Allocation> actual = AllocationsUtil.filterByEmployeeId(id, Static.ALLOCATIONS);
@@ -88,7 +88,7 @@ class AllocationsUtilTest {
     }
 
     @Test
-    void testFilterByEmployeeIdMinValue() {
+    void testFilterByEmployeeId_MinIntValue() {
         int id = Integer.MIN_VALUE;
         List<Allocation> expected = Collections.emptyList();
         List<Allocation> actual = AllocationsUtil.filterByEmployeeId(id, Static.ALLOCATIONS);

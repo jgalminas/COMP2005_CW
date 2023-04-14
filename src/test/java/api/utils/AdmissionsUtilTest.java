@@ -15,7 +15,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class AdmissionsUtilTest {
 
     @Test
-    void testFilterByAllocationsAdmissionsAndAllocationsEmpty() {
+    void testFilterByAllocations_AdmissionsAndAllocationsEmpty() {
 
         List<Admission> admissions = Collections.emptyList();
         List<Allocation> allocations = Collections.emptyList();
@@ -30,7 +30,7 @@ class AdmissionsUtilTest {
     }
 
     @Test
-    void testFilterByAllocationsAdmissionsIsNull() {
+    void testFilterByAllocations_AdmissionsIsNullAllocationEmpty() {
 
         List<Admission> admissions = null;
         List<Allocation> allocations = Collections.emptyList();
@@ -45,7 +45,7 @@ class AdmissionsUtilTest {
     }
 
     @Test
-    void testFilterByAllocationsAllocationsIsNull() {
+    void testFilterByAllocations_AllocationsIsNullAdmissionEmpty() {
 
         List<Admission> admissions = Collections.emptyList();
         List<Allocation> allocations = null;
@@ -60,7 +60,7 @@ class AdmissionsUtilTest {
     }
 
     @Test
-    void testFilterByAllocationsAllocationsAndAdmissionsIsNull() {
+    void testFilterByAllocations_AllocationsAndAdmissionsIsNull() {
 
         List<Admission> admissions = null;
         List<Allocation> allocations = null;
@@ -75,7 +75,7 @@ class AdmissionsUtilTest {
     }
 
     @Test
-    void testFilterByAllocationsAdmissionsEmpty() {
+    void testFilterByAllocations_AdmissionsEmpty() {
 
         List<Admission> admissions = Collections.emptyList();
         List<Allocation> allocations = new ArrayList<>(Static.ALLOCATIONS);
@@ -90,7 +90,7 @@ class AdmissionsUtilTest {
     }
 
     @Test
-    void testFilterByAllocationsAllocationsEmpty() {
+    void testFilterByAllocations_AllocationsEmpty() {
 
         List<Admission> admissions = new ArrayList<>(Static.ADMISSIONS);
         List<Allocation> allocations = Collections.emptyList();
@@ -105,7 +105,7 @@ class AdmissionsUtilTest {
     }
 
     @Test
-    void testFilterByAllocationsAllocationsAndAdmissionsNotEmpty() {
+    void testFilterByAllocations_AllocationsAndAdmissionsNotEmpty() {
 
         List<Admission> admissions = new ArrayList<>(Static.ADMISSIONS);
         List<Allocation> allocations = new ArrayList<>(Static.ALLOCATIONS);
@@ -123,7 +123,7 @@ class AdmissionsUtilTest {
     }
 
     @Test
-    void testGetAdmissionDurationSameDates() {
+    void testGetAdmissionDuration_SameDates() {
         Admission admission = new Admission(
                 3,
                 DateUtil.StringToDate("2021-09-23T02:00:00"),
@@ -153,7 +153,7 @@ class AdmissionsUtilTest {
     }
 
     @Test
-    void testGetAdmissionDurationLaterDate() {
+    void testGetAdmissionDuration_LaterDate() {
         Admission admission = new Admission(
                 3,
                 DateUtil.StringToDate("2021-09-23T02:00:00"),

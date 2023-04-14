@@ -6,7 +6,11 @@ import java.time.format.DateTimeFormatter;
 public class DateUtil {
 
     public static LocalDateTime StringToDate(String dateString) {
-        return LocalDateTime.parse(dateString, DateTimeFormatter.ISO_DATE_TIME);
+        if (dateString != null) {
+            return LocalDateTime.parse(dateString, DateTimeFormatter.ISO_DATE_TIME);
+        } else {
+            return LocalDateTime.MIN;
+        }
     }
 
 }
