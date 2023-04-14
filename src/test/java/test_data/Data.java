@@ -1,4 +1,4 @@
-package data;
+package test_data;
 
 import api.models.Admission;
 import api.models.Allocation;
@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class Static {
+public class Data {
 
     public static final List<Admission> ADMISSIONS = new ArrayList<>(Arrays.asList(
             new Admission(1, DateUtil.StringToDate("2020-11-28T16:45:00"), DateUtil.StringToDate("2020-11-28T23:56:00"), 2),

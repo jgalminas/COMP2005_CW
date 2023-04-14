@@ -1,6 +1,8 @@
-package api.network;
+package api.integration;
 
-import data.Static;
+import api.network.MaternityAPI;
+import api.network.MaternityServiceImpl;
+import test_data.Data;
 import api.models.Admission;
 import api.models.Allocation;
 import api.models.Patient;
@@ -31,13 +33,13 @@ class MaternityServiceImplTest {
         when(maternityAPI.getAllocations()).thenReturn(call);
         doAnswer(invocation -> {
             Callback<List<Allocation>> callback = invocation.getArgument(0);
-            callback.onResponse(call, Response.success(Static.ALLOCATIONS));
+            callback.onResponse(call, Response.success(Data.ALLOCATIONS));
             return null;
         }).when(call).enqueue(any(Callback.class));
 
 
         // test the method
-        CompletableFuture<List<Allocation>> expectedFuture = CompletableFuture.supplyAsync(() -> Static.ALLOCATIONS);
+        CompletableFuture<List<Allocation>> expectedFuture = CompletableFuture.supplyAsync(() -> Data.ALLOCATIONS);
         CompletableFuture<List<Allocation>> actualFuture = maternityService.getAllocations();
 
         List<Allocation> expected = expectedFuture.join();
@@ -106,12 +108,12 @@ class MaternityServiceImplTest {
         when(maternityAPI.getAdmissions()).thenReturn(call);
         doAnswer(invocation -> {
             Callback<List<Admission>> callback = invocation.getArgument(0);
-            callback.onResponse(call, Response.success(Static.ADMISSIONS));
+            callback.onResponse(call, Response.success(Data.ADMISSIONS));
             return null;
         }).when(call).enqueue(any(Callback.class));
 
         // test the method
-        CompletableFuture<List<Admission>> expectedFuture = CompletableFuture.supplyAsync(() -> Static.ADMISSIONS);
+        CompletableFuture<List<Admission>> expectedFuture = CompletableFuture.supplyAsync(() -> Data.ADMISSIONS);
         CompletableFuture<List<Admission>> actualFuture = maternityService.getAdmissions();
 
         List<Admission> expected = expectedFuture.join();
@@ -179,12 +181,12 @@ class MaternityServiceImplTest {
         when(maternityAPI.getPatients()).thenReturn(call);
         doAnswer(invocation -> {
             Callback<List<Patient>> callback = invocation.getArgument(0);
-            callback.onResponse(call, Response.success(Static.PATIENTS));
+            callback.onResponse(call, Response.success(Data.PATIENTS));
             return null;
         }).when(call).enqueue(any(Callback.class));
 
         // test the method
-        CompletableFuture<List<Patient>> expectedFuture = CompletableFuture.supplyAsync(() -> Static.PATIENTS);
+        CompletableFuture<List<Patient>> expectedFuture = CompletableFuture.supplyAsync(() -> Data.PATIENTS);
         CompletableFuture<List<Patient>> actualFuture = maternityService.getPatients();
 
         List<Patient> expected = expectedFuture.join();

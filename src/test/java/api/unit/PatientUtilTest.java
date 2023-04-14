@@ -1,6 +1,7 @@
-package api.utils;
+package api.unit;
 
-import data.Static;
+import api.utils.PatientUtil;
+import test_data.Data;
 import api.models.Admission;
 import api.models.Patient;
 import org.junit.jupiter.api.Test;
@@ -77,7 +78,7 @@ class PatientUtilTest {
     void testFilterByAdmissions_AdmissionsIsEmpty() {
 
         List<Admission> admissions = Collections.emptyList();
-        List<Patient> patients = Static.PATIENTS;
+        List<Patient> patients = Data.PATIENTS;
 
         List<Patient> expected = Collections.emptyList();
         List<Patient> actual = PatientUtil.filterByAdmissions(patients, admissions);
@@ -91,7 +92,7 @@ class PatientUtilTest {
     @Test
     void testFilterByAdmissions_PatientsIsEmpty() {
 
-        List<Admission> admissions = Static.ADMISSIONS;
+        List<Admission> admissions = Data.ADMISSIONS;
         List<Patient> patients = Collections.emptyList();
 
         List<Patient> expected = Collections.emptyList();
@@ -106,8 +107,8 @@ class PatientUtilTest {
     @Test
     void testFilterByAdmissions_PatientsAndAdmissionsIsNotEmpty() {
 
-        List<Admission> admissions = Static.ADMISSIONS;
-        List<Patient> patients = Static.PATIENTS;
+        List<Admission> admissions = Data.ADMISSIONS;
+        List<Patient> patients = Data.PATIENTS;
 
         List<Patient> expected = Arrays.asList(
                 new Patient(1, "Robinson", "Viv", "1113335555"),

@@ -1,5 +1,6 @@
-package api.network;
+package api.unit;
 
+import api.network.DateDeserializer;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonNull;
 import com.google.gson.JsonPrimitive;

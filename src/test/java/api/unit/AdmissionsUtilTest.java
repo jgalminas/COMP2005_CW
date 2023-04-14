@@ -1,6 +1,8 @@
-package api.utils;
+package api.unit;
 
-import data.Static;
+import api.utils.AdmissionsUtil;
+import api.utils.DateUtil;
+import test_data.Data;
 import api.models.Admission;
 import api.models.Allocation;
 import org.junit.jupiter.api.Test;
@@ -78,7 +80,7 @@ class AdmissionsUtilTest {
     void testFilterByAllocations_AdmissionsEmpty() {
 
         List<Admission> admissions = Collections.emptyList();
-        List<Allocation> allocations = new ArrayList<>(Static.ALLOCATIONS);
+        List<Allocation> allocations = new ArrayList<>(Data.ALLOCATIONS);
 
         List<Admission> expected = Collections.emptyList();
         List<Admission> actual = AdmissionsUtil.filterByAllocations(admissions, allocations);
@@ -92,7 +94,7 @@ class AdmissionsUtilTest {
     @Test
     void testFilterByAllocations_AllocationsEmpty() {
 
-        List<Admission> admissions = new ArrayList<>(Static.ADMISSIONS);
+        List<Admission> admissions = new ArrayList<>(Data.ADMISSIONS);
         List<Allocation> allocations = Collections.emptyList();
 
         List<Admission> expected = Collections.emptyList();
@@ -107,8 +109,8 @@ class AdmissionsUtilTest {
     @Test
     void testFilterByAllocations_AllocationsAndAdmissionsNotEmpty() {
 
-        List<Admission> admissions = new ArrayList<>(Static.ADMISSIONS);
-        List<Allocation> allocations = new ArrayList<>(Static.ALLOCATIONS);
+        List<Admission> admissions = new ArrayList<>(Data.ADMISSIONS);
+        List<Allocation> allocations = new ArrayList<>(Data.ALLOCATIONS);
 
         List<Admission> expected = Arrays.asList(
                 new Admission(1, DateUtil.StringToDate("2020-11-28T16:45:00"), DateUtil.StringToDate("2020-11-28T23:56:00"), 2),

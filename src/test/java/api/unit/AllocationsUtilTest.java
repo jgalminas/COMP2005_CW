@@ -1,6 +1,8 @@
-package api.utils;
+package api.unit;
 
-import data.Static;
+import api.utils.AllocationsUtil;
+import api.utils.DateUtil;
+import test_data.Data;
 import api.models.Allocation;
 import org.junit.jupiter.api.Test;
 
@@ -15,7 +17,7 @@ class AllocationsUtilTest {
     void testFilterByEmployeeById_Negative() {
         int id = -2;
         List<Allocation> expected = Collections.emptyList();
-        List<Allocation> actual = AllocationsUtil.filterByEmployeeId(id, Static.ALLOCATIONS);
+        List<Allocation> actual = AllocationsUtil.filterByEmployeeId(id, Data.ALLOCATIONS);
 
         assertArrayEquals(
                 expected.stream().mapToInt(Allocation::getId).toArray(),
@@ -39,7 +41,7 @@ class AllocationsUtilTest {
     void testFilterByEmployeeId_ValidIdButNoResults() {
         int id = 2;
         List<Allocation> expected = Collections.emptyList();
-        List<Allocation> actual = AllocationsUtil.filterByEmployeeId(id, Static.ALLOCATIONS);
+        List<Allocation> actual = AllocationsUtil.filterByEmployeeId(id, Data.ALLOCATIONS);
 
         assertArrayEquals(
                 expected.stream().mapToInt(Allocation::getId).toArray(),
@@ -67,7 +69,7 @@ class AllocationsUtilTest {
                 new Allocation(2, 3, 4, DateUtil.StringToDate("2021-09-23T21:50:00"), DateUtil.StringToDate("2021-09-24T09:50:00"))
         );
 
-        List<Allocation> actual = AllocationsUtil.filterByEmployeeId(id, Static.ALLOCATIONS);
+        List<Allocation> actual = AllocationsUtil.filterByEmployeeId(id, Data.ALLOCATIONS);
 
         assertArrayEquals(
                 expected.stream().mapToInt(Allocation::getId).toArray(),
@@ -79,7 +81,7 @@ class AllocationsUtilTest {
     void testFilterByEmployeeId_MaxIntValue() {
         int id = Integer.MAX_VALUE;
         List<Allocation> expected = Collections.emptyList();
-        List<Allocation> actual = AllocationsUtil.filterByEmployeeId(id, Static.ALLOCATIONS);
+        List<Allocation> actual = AllocationsUtil.filterByEmployeeId(id, Data.ALLOCATIONS);
 
         assertArrayEquals(
                 expected.stream().mapToInt(Allocation::getId).toArray(),
@@ -91,7 +93,7 @@ class AllocationsUtilTest {
     void testFilterByEmployeeId_MinIntValue() {
         int id = Integer.MIN_VALUE;
         List<Allocation> expected = Collections.emptyList();
-        List<Allocation> actual = AllocationsUtil.filterByEmployeeId(id, Static.ALLOCATIONS);
+        List<Allocation> actual = AllocationsUtil.filterByEmployeeId(id, Data.ALLOCATIONS);
 
         assertArrayEquals(
                 expected.stream().mapToInt(Allocation::getId).toArray(),

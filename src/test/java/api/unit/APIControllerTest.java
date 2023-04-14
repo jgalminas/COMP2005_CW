@@ -1,4 +1,4 @@
-package api;
+package api.unit;
 
 import api.models.AdmissionDuration;
 import api.models.Day;

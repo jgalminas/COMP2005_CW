@@ -1,9 +1,9 @@
-package api;
+package api.unit;
 import api.models.AdmissionDuration;
 import api.models.Day;
 import api.services.APIService;
 import api.services.APIServiceImpl;
-import data.Static;
+import test_data.Data;
 import api.models.Admission;
 import api.models.Patient;
 import api.network.MaternityService;
@@ -26,9 +26,9 @@ class APIServiceTest {
 
     @BeforeAll
     static void setUp()  {
-        when(maternityService.getAdmissions()).thenReturn(CompletableFuture.supplyAsync(() -> Static.ADMISSIONS));
-        when(maternityService.getAllocations()).thenReturn(CompletableFuture.supplyAsync(() -> Static.ALLOCATIONS));
-        when(maternityService.getPatients()).thenReturn(CompletableFuture.supplyAsync(() -> Static.PATIENTS));
+        when(maternityService.getAdmissions()).thenReturn(CompletableFuture.supplyAsync(() -> Data.ADMISSIONS));
+        when(maternityService.getAllocations()).thenReturn(CompletableFuture.supplyAsync(() -> Data.ALLOCATIONS));
+        when(maternityService.getPatients()).thenReturn(CompletableFuture.supplyAsync(() -> Data.PATIENTS));
     }
 
     @Test

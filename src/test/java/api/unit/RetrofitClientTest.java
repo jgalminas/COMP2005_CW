@@ -1,5 +1,6 @@
-package api.network;
+package api.unit;
 
+import api.network.RetrofitClient;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
