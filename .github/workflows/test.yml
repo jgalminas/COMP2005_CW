@@ -1,9 +1,13 @@
-name: Gradle CI
+name: Test
 
-on: pull_request
+on:
+  pull_request:
+    branches:
+      - '*'
+      - '!master'
 
 jobs:
-  gradle-build:
+  gradle-test:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v3
@@ -16,5 +20,5 @@ jobs:
       uses: gradle/gradle-build-action@v2
     - name: Make gradlew executable
       run: chmod +x ./gradlew   
-    - name: Build
-      run: ./gradlew build
+    - name: Test
+      run: ./gradlew clean test
