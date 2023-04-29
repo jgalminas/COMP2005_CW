@@ -1,6 +1,7 @@
 # Build
 FROM amazoncorretto:8-al2023-jdk AS BUILD
 COPY . .
+RUN chmod +x ./gradlew
 RUN ./gradlew build
 
 # Package
