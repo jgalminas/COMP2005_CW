@@ -8,6 +8,8 @@ import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
+
 import java.util.List;
 
 @RestController
@@ -18,6 +20,11 @@ public class APIController {
     @Autowired
     public APIController(APIService apiService) {
         this.apiService = apiService;
+    }
+
+    @RequestMapping("/")
+    public ModelAndView Base() {
+        return new ModelAndView("redirect:swagger-ui/index.html");
     }
 
     @Operation(summary = "Get the day of the week which has the most amount of admissions.",
