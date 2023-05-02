@@ -30,15 +30,18 @@ class APIControllerTest {
     @Test
     void testGetDayWithMostAdmissions() throws Exception {
 
+        // arrange
         when(apiService.getDayWithMostAdmissions()).thenReturn(new Day("MONDAY"));
-
         String expected = "{\"name\":\"MONDAY\"}";
+
+        // act
         String result = mockMvc.perform(get("/day-with-most-admissions"))
                 .andExpect(status().isOk())
                 .andReturn()
                 .getResponse()
                 .getContentAsString();
 
+        // assert
         assertEquals(expected, result);
 
     }
@@ -46,17 +49,19 @@ class APIControllerTest {
     @Test
     void testGetAvgPatientTimeByEmployeeId() throws Exception {
 
+        // arrange
         int id = 4;
-
         when(apiService.getAvgPatientTimeByEmployeeId(id)).thenReturn(new AdmissionDuration(2934));
-
         String expected = "{\"unit\":\"MINUTES\",\"amount\":2934}";
+
+        // act
         String result = mockMvc.perform(get("/avg-patient-time/{id}", id))
                 .andExpect(status().isOk())
                 .andReturn()
                 .getResponse()
                 .getContentAsString();
 
+        // assert
         assertEquals(expected, result);
 
     }
@@ -64,6 +69,7 @@ class APIControllerTest {
     @Test
     void testGetPatientsByEmployeeId() throws Exception {
 
+        // arrange
         int id = 4;
 
         when(apiService.getPatientsByEmployeeId(id)).thenReturn(Arrays.asList(
@@ -74,12 +80,14 @@ class APIControllerTest {
         String expected = "[{\"id\":1,\"surname\":\"Robinson\",\"forename\":\"Viv\",\"nhsNumber\":\"1113335555\"}," +
                           "{\"id\":2,\"surname\":\"Carter\",\"forename\":\"Heather\",\"nhsNumber\":\"2224446666\"}]";
 
+        // act
         String result = mockMvc.perform(get("/patients-by-employee/{id}", id))
                 .andExpect(status().isOk())
                 .andReturn()
                 .getResponse()
                 .getContentAsString();
 
+        // assert
         assertEquals(expected, result);
 
     }
@@ -87,18 +95,19 @@ class APIControllerTest {
     @Test
     void testGetPatientsByEmployeeId_EmptyArray() throws Exception {
 
+        // arrange
         int id = 4;
-
         when(apiService.getPatientsByEmployeeId(id)).thenReturn(Collections.emptyList());
-
         String expected = "[]";
 
+        // act
         String result = mockMvc.perform(get("/patients-by-employee/{id}", id))
                 .andExpect(status().isOk())
                 .andReturn()
                 .getResponse()
                 .getContentAsString();
 
+        // assert
         assertEquals(expected, result);
 
     }
@@ -106,15 +115,18 @@ class APIControllerTest {
     @Test
     void testGetPatientsDischargedWithin3Days_EmptyArray() throws Exception {
 
+        // arrange
         when(apiService.getPatientsDischargedWithin3Days()).thenReturn(Collections.emptyList());
-
         String expected = "[]";
+
+        // act
         String result = mockMvc.perform(get("/discharged-within-3-days"))
                 .andExpect(status().isOk())
                 .andReturn()
                 .getResponse()
                 .getContentAsString();
 
+        // assert
         assertEquals(expected, result);
 
     }
@@ -122,17 +134,21 @@ class APIControllerTest {
     @Test
     void testGetPatientsDischargedWithin3Days() throws Exception {
 
+        // arrange
         when(apiService.getPatientsDischargedWithin3Days()).thenReturn(Arrays.asList(
                 new Patient(2, "Carter", "Heather", "2224446666")
         ));
 
         String expected = "[{\"id\":2,\"surname\":\"Carter\",\"forename\":\"Heather\",\"nhsNumber\":\"2224446666\"}]";
+
+        // act
         String result = mockMvc.perform(get("/discharged-within-3-days"))
                 .andExpect(status().isOk())
                 .andReturn()
                 .getResponse()
                 .getContentAsString();
 
+        // assert
         assertEquals(expected, result);
 
     }
