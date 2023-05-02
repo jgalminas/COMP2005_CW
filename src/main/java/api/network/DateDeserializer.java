@@ -11,6 +11,13 @@ import java.time.format.DateTimeParseException;
 
 public class DateDeserializer implements JsonDeserializer<LocalDateTime> {
 
+    /**
+     * A function which deserializes JSON into a LocalDateTime object
+     * @param json
+     * @param typeOfT
+     * @param context
+     * @return LocalDateTime object
+     */
     @Override
     public LocalDateTime deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) {
 

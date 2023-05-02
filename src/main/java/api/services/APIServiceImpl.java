@@ -19,12 +19,19 @@ public class APIServiceImpl implements APIService {
         this.maternityService = maternityAPI;
     }
 
+    /**
+     * Retrieve patients by employee.
+     * @param id employee ID
+     * @return A list of Patient objects
+     */
     @Override
     public List<Patient> getPatientsByEmployeeId(int id) {
 
+        // retrieve data from the maternity web service
         List<Admission> admissions = maternityService.getAdmissions().join();
         List<Allocation> allocations = maternityService.getAllocations().join();
         List<Patient> patients = maternityService.getPatients().join();
+
 
         List<Allocation> filteredAllocations = AllocationsUtil.filterByEmployeeId(id, allocations);
         List<Admission> filteredAdmissions = AdmissionsUtil.filterByAllocations(admissions, filteredAllocations);
@@ -33,12 +40,18 @@ public class APIServiceImpl implements APIService {
 
     }
 
+    /**
+     * Find patients which were discharged within three days of admission.
+     * @return List of Patient object
+     */
     @Override
     public List<Patient> getPatientsDischargedWithin3Days() {
 
+        // retrieve data from the maternity web service
         List<Admission> admissions = maternityService.getAdmissions().join();
         List<Patient> patients = maternityService.getPatients().join();
 
+        // filter data
         List<Admission> filteredAdmissions = new ArrayList<>();
 
         for (Admission ad : admissions) {
@@ -53,9 +66,14 @@ public class APIServiceImpl implements APIService {
         return PatientUtil.filterByAdmissions(patients, filteredAdmissions);
     }
 
+    /**
+     * Find the day of the week with the most admissions.
+     * @return Day object
+     */
     @Override
     public Day getDayWithMostAdmissions() {
 
+        // retrieve data from the maternity web service
         List<Admission> admissions = maternityService.getAdmissions().join();
 
         Map<String, Integer> dayCounts = new HashMap<>();
@@ -69,6 +87,7 @@ public class APIServiceImpl implements APIService {
         // get the day with most admissions
         String day = null;
 
+        // find the day with the highest count
         for (String key : dayCounts.keySet()) {
             if (day == null || dayCounts.get(day) < dayCounts.get(key)) {
                 day = key;
@@ -78,12 +97,19 @@ public class APIServiceImpl implements APIService {
         return new Day(day);
     }
 
+    /**
+     * Calculates the average patient admission time by doctor.
+     * @param id employee ID
+     * @return an AdmissionDuration object
+     */
     @Override
     public AdmissionDuration getAvgPatientTimeByEmployeeId(int id) {
 
+        // retrieve data from the maternity web service
         List<Admission> admissions = maternityService.getAdmissions().join();
         List<Allocation> allocations = maternityService.getAllocations().join();
 
+        // filter data
         List<Allocation> filteredAllocations = AllocationsUtil.filterByEmployeeId(id, allocations);
         List<Admission> filteredAdmissions = AdmissionsUtil.filterByAllocations(admissions, filteredAllocations);
 

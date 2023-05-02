@@ -8,6 +8,12 @@ import java.util.Map;
 
 public class AllocationsUtil {
 
+    /**
+     * Finds all allocations of a specific employee.
+     * @param id Employee ID
+     * @param allocations List of Allocation objects
+     * @return List of Allocation objects
+     */
     public static List<Allocation> filterByEmployeeId(int id, List<Allocation> allocations) {
 
         Map<Integer, Allocation> filtered = new HashMap<>();

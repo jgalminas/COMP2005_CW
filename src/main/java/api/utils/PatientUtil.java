@@ -6,6 +6,12 @@ import java.util.*;
 
 public class PatientUtil {
 
+    /**
+     * Find all patients which have been admitted before.
+     * @param patients List of Patient objects
+     * @param admissions List of Admission objects
+     * @return List of Patient objects
+     */
     public static List<Patient> filterByAdmissions(List<Patient> patients, List<Admission> admissions) {
 
         Map<Integer, Patient> filtered = new HashMap<>();

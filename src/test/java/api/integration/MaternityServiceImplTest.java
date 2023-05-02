@@ -27,6 +27,7 @@ class MaternityServiceImplTest {
     @Test
     void testGetAllocations_Successful() {
 
+        // arrange
         // mock GET allocations endpoint
         Call<List<Allocation>> call = mock(Call.class);
 
@@ -37,14 +38,14 @@ class MaternityServiceImplTest {
             return null;
         }).when(call).enqueue(any(Callback.class));
 
-
-        // test the method
         CompletableFuture<List<Allocation>> expectedFuture = CompletableFuture.supplyAsync(() -> Data.ALLOCATIONS);
-        CompletableFuture<List<Allocation>> actualFuture = maternityService.getAllocations();
-
         List<Allocation> expected = expectedFuture.join();
+
+        // act
+        CompletableFuture<List<Allocation>> actualFuture = maternityService.getAllocations();
         List<Allocation> actual = actualFuture.join();
 
+        // assert
         assertArrayEquals(
                 expected.stream().mapToInt(Allocation::getId).toArray(),
                 actual.stream().mapToInt(Allocation::getId).toArray()
@@ -55,6 +56,7 @@ class MaternityServiceImplTest {
     @Test
     void testGetAllocations_Unsuccessful() {
 
+        // arrange
         // mock GET admissions endpoint with unsuccessful outcome
         Call<List<Allocation>> call = mock(Call.class);
 
@@ -65,13 +67,14 @@ class MaternityServiceImplTest {
             return null;
         }).when(call).enqueue(any(Callback.class));
 
-        // test the method
         CompletableFuture<List<Allocation>> expectedFuture = CompletableFuture.supplyAsync(Collections::emptyList);
-        CompletableFuture<List<Allocation>> actualFuture = maternityService.getAllocations();
-
         List<Allocation> expected = expectedFuture.join();
+
+        // act
+        CompletableFuture<List<Allocation>> actualFuture = maternityService.getAllocations();
         List<Allocation> actual = actualFuture.join();
 
+        // assert
         assertArrayEquals(
                 expected.stream().mapToInt(Allocation::getId).toArray(),
                 actual.stream().mapToInt(Allocation::getId).toArray()
@@ -82,6 +85,7 @@ class MaternityServiceImplTest {
     @Test
     void testGetAllocations_Failed() {
 
+        // arrange
         // mock GET admissions endpoint with unsuccessful outcome
         Call<List<Allocation>> call = mock(Call.class);
 
@@ -92,9 +96,10 @@ class MaternityServiceImplTest {
             return null;
         }).when(call).enqueue(any(Callback.class));
 
-        // test the method
+        // act
         CompletableFuture<List<Allocation>> actualFuture = maternityService.getAllocations();
 
+        // assert
         assertThrows(CompletionException.class, actualFuture::join);
 
     }
@@ -102,6 +107,7 @@ class MaternityServiceImplTest {
     @Test
     void testGetAdmissions_Successful() {
 
+        // arrange
         // mock GET admissions endpoint
         Call<List<Admission>> call = mock(Call.class);
 
@@ -112,13 +118,14 @@ class MaternityServiceImplTest {
             return null;
         }).when(call).enqueue(any(Callback.class));
 
-        // test the method
         CompletableFuture<List<Admission>> expectedFuture = CompletableFuture.supplyAsync(() -> Data.ADMISSIONS);
-        CompletableFuture<List<Admission>> actualFuture = maternityService.getAdmissions();
-
         List<Admission> expected = expectedFuture.join();
+
+        // act
+        CompletableFuture<List<Admission>> actualFuture = maternityService.getAdmissions();
         List<Admission> actual = actualFuture.join();
 
+        // assert
         assertArrayEquals(
                 expected.stream().mapToInt(Admission::getId).toArray(),
                 actual.stream().mapToInt(Admission::getId).toArray()
@@ -128,6 +135,7 @@ class MaternityServiceImplTest {
     @Test
     void testGetAdmissions_Unsuccessful() {
 
+        // arrange
         // mock GET admissions endpoint with unsuccessful outcome
         Call<List<Admission>> call = mock(Call.class);
 
@@ -138,13 +146,14 @@ class MaternityServiceImplTest {
             return null;
         }).when(call).enqueue(any(Callback.class));
 
-        // test the method
         CompletableFuture<List<Admission>> expectedFuture = CompletableFuture.supplyAsync(Collections::emptyList);
-        CompletableFuture<List<Admission>> actualFuture = maternityService.getAdmissions();
-
         List<Admission> expected = expectedFuture.join();
+
+        // act
+        CompletableFuture<List<Admission>> actualFuture = maternityService.getAdmissions();
         List<Admission> actual = actualFuture.join();
 
+        // assert
         assertArrayEquals(
                 expected.stream().mapToInt(Admission::getId).toArray(),
                 actual.stream().mapToInt(Admission::getId).toArray()
@@ -155,6 +164,7 @@ class MaternityServiceImplTest {
     @Test
     void testGetAdmissions_Failed() {
 
+        // arrange
         // mock GET admissions endpoint with unsuccessful outcome
         Call<List<Admission>> call = mock(Call.class);
 
@@ -165,9 +175,10 @@ class MaternityServiceImplTest {
             return null;
         }).when(call).enqueue(any(Callback.class));
 
-        // test the method
+        // act
         CompletableFuture<List<Admission>> actualFuture = maternityService.getAdmissions();
 
+        // assert
         assertThrows(CompletionException.class, actualFuture::join);
 
     }
@@ -175,6 +186,7 @@ class MaternityServiceImplTest {
     @Test
     void testGetPatients_Successful() {
 
+        // arrange
         // mock GET patients endpoint
         Call<List<Patient>> call = mock(Call.class);
 
@@ -185,13 +197,14 @@ class MaternityServiceImplTest {
             return null;
         }).when(call).enqueue(any(Callback.class));
 
-        // test the method
         CompletableFuture<List<Patient>> expectedFuture = CompletableFuture.supplyAsync(() -> Data.PATIENTS);
-        CompletableFuture<List<Patient>> actualFuture = maternityService.getPatients();
-
         List<Patient> expected = expectedFuture.join();
+
+        // act
+        CompletableFuture<List<Patient>> actualFuture = maternityService.getPatients();
         List<Patient> actual = actualFuture.join();
 
+        // assert
         assertArrayEquals(
                 expected.stream().mapToInt(Patient::getId).toArray(),
                 actual.stream().mapToInt(Patient::getId).toArray()
@@ -201,6 +214,7 @@ class MaternityServiceImplTest {
     @Test
     void testGetPatients_Unsuccessful() {
 
+        // arrange
         // mock GET patients endpoint
         Call<List<Patient>> patientCall = mock(Call.class);
 
@@ -211,13 +225,14 @@ class MaternityServiceImplTest {
             return null;
         }).when(patientCall).enqueue(any(Callback.class));
 
-        // test the method
         CompletableFuture<List<Patient>> expectedFuture = CompletableFuture.supplyAsync(Collections::emptyList);
-        CompletableFuture<List<Patient>> actualFuture = maternityService.getPatients();
-
         List<Patient> expected = expectedFuture.join();
+
+        // act
+        CompletableFuture<List<Patient>> actualFuture = maternityService.getPatients();
         List<Patient> actual = actualFuture.join();
 
+        // assert
         assertArrayEquals(
                 expected.stream().mapToInt(Patient::getId).toArray(),
                 actual.stream().mapToInt(Patient::getId).toArray()
@@ -227,6 +242,7 @@ class MaternityServiceImplTest {
     @Test
     void testGetPatients_Failed() {
 
+        // arrange
         // mock GET admissions endpoint with unsuccessful outcome
         Call<List<Patient>> call = mock(Call.class);
 
@@ -237,9 +253,10 @@ class MaternityServiceImplTest {
             return null;
         }).when(call).enqueue(any(Callback.class));
 
-        // test the method
+        // act
         CompletableFuture<List<Patient>> actualFuture = maternityService.getPatients();
 
+        // assert
         assertThrows(CompletionException.class, actualFuture::join);
 
     }
