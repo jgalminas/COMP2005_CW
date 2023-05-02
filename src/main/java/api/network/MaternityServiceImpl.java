@@ -22,6 +22,10 @@ public class MaternityServiceImpl implements MaternityService {
         this.maternityAPI = maternityAPI;
     }
 
+    /**
+     * Retrieves a list of Allocation objects from the maternity web service
+     * @return Completable future containing a list of Allocation objects
+     */
     @Override
     public CompletableFuture<List<Allocation>> getAllocations() {
 
@@ -46,6 +50,10 @@ public class MaternityServiceImpl implements MaternityService {
         return future;
     }
 
+    /**
+     * Retrieves a list of Admission objects from the maternity web service
+     * @return Completable future containing a list of Allocation objects
+     */
     @Override
     public CompletableFuture<List<Admission>> getAdmissions() {
 
@@ -70,6 +78,10 @@ public class MaternityServiceImpl implements MaternityService {
         return future;
     }
 
+    /**
+     * Retrieves a list of Patient objects from the maternity web service
+     * @return Completable future containing a list of Patient objects
+     */
     @Override
     public CompletableFuture<List<Patient>> getPatients() {
 
